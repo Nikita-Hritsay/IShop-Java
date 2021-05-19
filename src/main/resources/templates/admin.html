@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/slider.js" defer></script>
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+<header class="top_header-section">
+    <div class="header-page">
+        <img src="images/logo2.jpg" class="header_logo" alt="">
+
+        <div class="header-page_end">
+            <nav class="header-page_nav">
+                <ul class="header-page_ul">
+                    <li class="header-page_li">
+                        <a class="header-page_link" href="#">
+                            <span class="header-page_text">поиск</span>
+                        </a>
+                    </li>
+                    <li class="header-page_li">
+                        <a class="header-page_link" href="#">
+                            <span class="header-page_text">корзина</span>
+                        </a>
+                    </li>
+                    <li class="header-page_li">
+                        <button class="acc-popup-btn" type="button" data-popup="accpopup">аккаунт</button>
+                    </li>
+                    <li class="header-page_li">
+                        <button class="acc-popup-btn" type="button" ><a href="/logout">выйти</a></button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<header class="main_header-section">
+    <div class="main_header_lest_side">
+        <div class="main_header_item headerButton">
+            <a href="/motherboard" class="header-item">Материнская плата</a>
+        </div>
+        <div class="main_header_item headerButton">
+            <a href="#" class="header-item">Кресла</a>
+        </div>
+        <div class="main_header_item headerButton">
+            <a href="#" class="header-item">Наушники</a>
+        </div>
+        <div class="main_header_item headerButton">
+            <a href="#" class="header-item">Клавиатуры</a>
+        </div>
+        <div class="main_header_item headerButton">
+            <a href="#" class="header-item">Мыши</a>
+        </div>
+        <div class="main_header_item headerButton">
+            <a href="#" class="header-item">Другая переферия</a>
+        </div>
+
+    </div>
+    <div class="header_button">
+        <div class="main_header_item headerButton_mag" onclick="handleClick()">
+            <a href="#" class="main_header_mag">Магазин</a>
+        </div>
+    </div>
+</header>
+<section class="herobanner_main">
+    <div class="herobanner section">
+        <div class="slider">
+            <div class="slides">
+
+                <div class="overflow">
+                    <div class="inner">
+                        <div class="info-text-first">
+                            <p class="header_info_first">Новая техника по лучшим ценам</p>
+                        </div>
+                        <div class="info-text-second">
+                            <p class="header_info_second">Протестируй новейшую технику</p>
+                        </div>
+                        <div class="inner-button"><a  href="#" class="inner-btn-pod">ПОДРОБНЕЕ</a></div>
+                    </div>
+                </div>
+
+                <input type="radio" name="radio-btn" id="radio1">
+                <input type="radio" name="radio-btn" id="radio2">
+                <input type="radio" name="radio-btn" id="radio3">
+                <input type="radio" name="radio-btn" id="radio4">
+                <input type="radio" name="radio-btn" id="radio5">
+
+                <div class="slide first">
+                    <picture>
+                        <source srcset="images/herobanner/1_mobile.jpg" media="(max-width: 575px)">
+                        <img src="images/herobanner/1.jpg" alt="">
+                    </picture>
+                </div>
+                <div class="slide">
+                    <picture>
+                        <source srcset="images/herobanner/2_mobile.jpg" media="(max-width: 575px)">
+                        <img src="images/herobanner/2.jpg" alt="">
+                    </picture>
+                </div>
+                <div class="slide">
+                    <picture>
+                        <source srcset="images/herobanner/3_mobile.jpg" media="(max-width: 575px)">
+                        <img src="images/herobanner/3.jpg" alt="">
+                    </picture>
+                </div>
+                <div class="slide">
+                    <picture>
+                        <source srcset="images/herobanner/4_mobile.jpg" media="(max-width: 575px)">
+                        <img src="images/herobanner/4.jpg" alt="">
+                    </picture>
+                </div>
+                <div class="slide">
+                    <picture>
+                        <source srcset="images/herobanner/5_mobile.jpg" media="(max-width: 575px)">
+                        <img src="images/herobanner/5.jpg" alt="">
+                    </picture>
+                </div>
+
+                <div class="navigation-auto">
+                    <div class="auto-btn1"></div>
+                    <div class="auto-btn2"></div>
+                    <div class="auto-btn3"></div>
+                    <div class="auto-btn4"></div>
+                    <div class="auto-btn5"></div>
+                </div>
+            </div>
+
+            <div class="navigation-manual">
+                <label for="radio1" class="manual-btn"></label>
+                <label for="radio2" class="manual-btn"></label>
+                <label for="radio3" class="manual-btn"></label>
+                <label for="radio4" class="manual-btn"></label>
+                <label for="radio5" class="manual-btn"></label>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+</section>
+<div class="recomandation-catalog catalog_animation">
+    <div class="recomandation-catalog_name">
+        <h3 class="recomandation-catalog_name_text">Рекомендация</h3>
+    </div>
+    <div class="recomandation_list">
+        <div class="recomandation-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Высший уровень игры</p>
+                    <p class="product-info info-text-second">Видеокарты GeForce RTX 30</p>
+                </div>
+            </div>
+        </div>
+        <div class="recomandation-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/2.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Играй на отлично</p>
+                    <p class="product-info info-text-second">Ноутбуки с лучшими характеристиками</p>
+                </div>
+            </div>
+        </div>
+        <div class="recomandation-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Компьютерные кресла</p>
+                    <p class="product-info info-text-second">Большой выбор компьютерных кресел</p>
+                </div>
+            </div>
+        </div>
+        <div class="recomandation-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/2.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Компьютерные кресла</p>
+                    <p class="product-info info-text-second">Большой выбор компьютерных кресел</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sales-catalog catalog_animation">
+    <div class="sales-catalog_name">
+        <h3 class="sales-catalog_name_text">Скидки</h3>
+    </div>
+    <div class="sales-list">
+        <div class="sales-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Высший уровень игры</p>
+                    <p class="product-info info-text-second">Видеокарты GeForce RTX 30</p>
+                </div>
+            </div>
+        </div>
+        <div class="sales-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Играй на отлично</p>
+                    <p class="product-info info-text-second">Ноутбуки с лучшими характеристиками</p>
+                </div>
+            </div>
+        </div>
+        <div class="sales-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Компьютерные кресла</p>
+                    <p class="product-info info-text-second">Большой выбор компьютерных кресел</p>
+                </div>
+            </div>
+        </div>
+        <div class="sales-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Компьютерные кресла</p>
+                    <p class="product-info info-text-second">Большой выбор компьютерных кресел</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="news-catalog catalog_animation">
+    <div class="news-catalog_name">
+        <h3 class="news-catalog_name_text">Новости</h3>
+    </div>
+    <div class="news_list">
+        <div class="news-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">ТОП-5 современных смартфонов-долгожителей</p>
+                    <p class="product-info info-text-second">Пятерка смартфонов, способных работать несколько суток без подзарядки</p>
+                </div>
+            </div>
+        </div>
+        <div class="news-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/2.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Чем отличаются геймерская и аудиофильская звуковая карта для ПК?</p>
+                    <p class="product-info info-text-second">Стоит ли платить вдвое больше, если вы фанат компьютерных игр, а не меломан?</p>
+                </div>
+            </div>
+        </div>
+        <div class="news-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/1.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Помощники в учебе и работе: пятерка лучших недорогих ноутбуков</p>
+                    <p class="product-info info-text-second">Тестируем лучшие лэптопы по соотношению цены и качества с упором на процессоры Ryzen</p>
+                </div>
+            </div>
+        </div>
+        <div class="news-catalog-item">
+            <div class="product">
+                <img src="images/recomandation/2.jpg" alt="" class="product-img">
+                <div class="product-info">
+                    <p class="product-info info-text-first">Помощники в учебе и работе: пятерка лучших недорогих ноутбуков</p>
+                    <p class="product-info info-text-second">Тестируем лучшие лэптопы по соотношению цены и качества с упором на процессоры Ryzen</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="about-section">
+    <img src="images/about/1.jpg" alt="" class="about-img">
+    <div class="about_content">
+        <h2 class="about_content_title">О нас</h2>
+        <p class="about_content_text">
+            El Shop - каталог описаний и цен на бытовую и компьютерную технику, электронику, товары для дома и офиса. Наша задача — помочь подобрать и купить нужную модель по лучшей цене в интернет-магазинах. В каталоге можно найти всю необходимую для выбора информацию — сравнение товаров, подбор моделей по параметрам, подробные описания, поиск товара по названию, отзывы пользователей, фотогалереи товаров, глоссарий терминов, обзоры, инструкции, рейтинг товаров, рекомендации экспертов, каталог брендов и многое другое. Перепечатка любых материалов только с письменного согласия редакции.
+        </p>
+    </div>
+</div>
+
+<section class="section section-contacts">
+    <div class="container section-contacts_container">
+        <header class="section_header">
+            <h2 class="section_title section-contacts_title_main">Контакты</h2>
+        </header>
+        <div class="contacts">
+            <div class="contacts_start">
+                <div class="contacts_map"> <img class="map_img" src="images/about/map2.jpg"> </div>
+            </div>
+            <div class="contacts_end">
+                <div class="contacts_item">
+                    <h3 class="contacts_title">Адрес</h3>
+                    <p class="contacts_text">Украина, г. Харьков, ул. Семена Палия, 125-А</p>
+                </div>
+                <div class="contacts_item">
+                    <h3 class="contacts_title">Телефон</h3>
+                    <a class="contacts_phone" href="tel:+380993843626">+38 (099) 384-36-26</a>
+                </div>
+                <div class="contacts_item">
+                    <h3 class="contacts_title">Социальные сети</h3>
+                    <ul class="socials">
+                        <li class="socials_item">
+                            <a href="#" class="socials_link" target="_blank">
+                                <img class="socials_icon socials_icon-fb" src="images/about/fe.png" alt="Facebook">
+                            </a>
+                        </li>
+                        <li class="socials_item">
+                            <a href="#" class="socials_link" target="_blank">
+                                <img class="socials_icon socials_icon-inst" src="images/about/instagram-logo.png" alt="Instagram">
+                            </a>
+                        </li>
+                        <li class="socials_item">
+                            <a href="#" class="socials_link" target="_blank">
+                                <img class="socials_icon socials_icon-vk" src="images/about/vk-logo.png" alt="VK">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</div>
+</body>
+</html>
