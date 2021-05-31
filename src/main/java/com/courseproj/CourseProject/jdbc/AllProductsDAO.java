@@ -4,8 +4,8 @@ import com.courseproj.CourseProject.Entity.Product;
 
 import java.util.List;
 
-public interface MotherboardDAO {
-    List<Product> getAllMotherboards();
+public interface AllProductsDAO {
+    List<Product> getAllProducts();
 
     Product index(int id);
 }

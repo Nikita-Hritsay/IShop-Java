@@ -13,10 +13,12 @@ public class ProductMapper implements RowMapper<Product> {
         product.setIdProduct(resultSet.getInt("idProduct"));
         product.setName(resultSet.getString("name"));
         product.setPrice(resultSet.getInt("price"));
-        product.setIdImg(resultSet.getInt("Img_idImg"));
-        product.setIdType(resultSet.getInt("idType"));
+        //product.setIdImg(resultSet.getInt("Img_idImg"));
+        //product.setIdType(resultSet.getInt("idType"));
+        product.setType(resultSet.getString("type"));
+        product.setDescription(resultSet.getString("description"));
+        product.setPath_to_file(resultSet.getString("path_to_file"));
         System.out.println(product.toString());
-
         return product;
     }
 }

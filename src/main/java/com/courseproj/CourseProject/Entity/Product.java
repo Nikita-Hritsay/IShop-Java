@@ -6,6 +6,58 @@ public class Product {
     private int price;
     private int idImg;
     private int idType;
+    private String type;
+    private String description;
+    private String path_to_file;
+
+    public String getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idProduct=" + idProduct +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", idImg=" + idImg +
+                ", idType=" + idType +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                ", path_to_file='" + path_to_file + '\'' +
+                '}';
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPath_to_file() {
+        return path_to_file;
+    }
+
+    public void setPath_to_file(String path_to_file) {
+        this.path_to_file = path_to_file;
+    }
+
+    public Product(int idProduct, String name, int price, int idImg, int idType, String type, String description, String path_to_file) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.price = price;
+        this.idImg = idImg;
+        this.idType = idType;
+        this.type = type;
+        this.description = description;
+        this.path_to_file = path_to_file;
+    }
 
     public Product(int idProduct, String name, int price, int idImg, int idType) {
         this.idProduct = idProduct;
@@ -23,17 +75,6 @@ public class Product {
         this.price = price;
         this.idImg = idImg;
         this.idType = idType;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "idProduct=" + idProduct +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", idImg=" + idImg +
-                ", idType=" + idType +
-                '}';
     }
 
     public int getIdProduct() {

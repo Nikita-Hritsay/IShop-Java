@@ -5,84 +5,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<header class="top_header-section">
-    <div class="header-page">
-        <img src="images/logo2.jpg" class="header_logo" alt="">
-        <!--<div class="top_header_item headerlogo">El Shop</div>-->
-
-        <div class="header-page_end">
-            <nav class="header-page_nav">
-                <ul class="header-page_ul">
-                    <li class="header-page_li">
-                        <a class="header-page_link" href="#">
-                            <span class="header-page_text">поиск</span>
-                        </a>
-                    </li>
-                    <li class="header-page_li">
-                        <a class="header-page_link" href="#">
-                            <span class="header-page_text">корзина</span>
-                        </a>
-                    </li>
-                    <li class="header-page_li">
-                        <button class="acc-popup-btn" type="button" ><a href="/login">войти</a></button>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</header>
-
-<header class="main_header-section">
-    <div class="main_header_lest_side">
-        <div class="main_header_item headerButton">
-            <a href="/motherboard" class="header-item">Материнская плата</a>
-        </div>
-        <div class="main_header_item headerButton">
-            <a href="#" class="header-item">Кресла</a>
-        </div>
-        <div class="main_header_item headerButton">
-            <a href="#" class="header-item">Наушники</a>
-        </div>
-        <div class="main_header_item headerButton">
-            <a href="#" class="header-item">Клавиатуры</a>
-        </div>
-        <div class="main_header_item headerButton">
-            <a href="#" class="header-item">Мыши</a>
-        </div>
-        <div class="main_header_item headerButton">
-            <a href="#" class="header-item">Другая переферия</a>
-        </div>
-
-    </div>
-    <div class="header_button">
-        <div class="main_header_item headerButton_mag" onclick="handleClick()">
-            <a href="#" class="main_header_mag">Магазин</a>
-        </div>
-    </div>
-</header>
 
 
-<div class="news-catalog catalog_animation">
+<header th:insert="blocks/header :: header"></header>
 
-    <div class="news_list">
+
+<div class="container mt-5 mb-5">
+    <h1 th:text="${title}"/>
+    <form action="/product/{idProduct}" method="post">
         <tr th:each="product : ${products}">
             <div class="news-catalog-item">
 
                 <div class="product">
-                    <img src="/images/recomandation/1.jpg" alt="" class="product-img">
+                    <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
                     <div class="product-info">
                         <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
                         <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
-                        <input id="number" type="number" value="1">
+                        <label>Количество:<br><input type="number" name="amount" class="form-control"></label><br>
+                        <button type="submit" class="btn btn-success">Добавить</button>
                     </div>
                 </div>
 
             </div>
         </tr>
-    </div>
+    </form>
 </div>
+
+
 
 </body>
 </html>
+
