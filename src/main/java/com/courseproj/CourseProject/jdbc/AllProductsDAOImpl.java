@@ -45,6 +45,32 @@ public class AllProductsDAOImpl implements AllProductsDAO{
 
         Product product = jdbcTemplate.query(SQL_GET_BY_ID, new Object[]{id}, new ProductMapper())
                 .stream().findAny().orElse(null);
+
         return product;
+    }
+
+    @Override
+    public void addProduct(String name, int price, int Img_idImg, int idType) {
+        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType) values(?, ?, ?, ?)", name, price, Img_idImg, idType);
+    }
+
+    @Override
+    public void deleteProduct(int idProduct) {
+        jdbcTemplate.update("delete from testcourseproject.reciept_has_product where idProduct = ?", idProduct);
+        jdbcTemplate.update("delete from testcourseproject.product where idProduct = ?", idProduct);
+    }
+
+    @Override
+    public void updateProduct(String name, int price, int idType, int idProduct) {
+        Product product = index(idProduct);
+        if(price != product.getPrice()){
+            jdbcTemplate.update("update testcourseproject.product set price = "+ price +" where idProduct = ?", idProduct);
+        }
+        if(name != product.getName()){
+            jdbcTemplate.update("update testcourseproject.product set name = '"+ name +"' where idProduct = ?", idProduct);
+        }
+        if(idType != product.getIdType()){
+            jdbcTemplate.update("update testcourseproject.product set idType = "+ idType +  " where idProduct = ?", idProduct);
+        }
     }
 }

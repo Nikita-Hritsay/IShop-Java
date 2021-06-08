@@ -15,7 +15,7 @@
 
 <div class="container mt-5 mb-5">
     <h1 th:text="${title}"/>
-    <form action="/product/{idProduct}" method="post">
+    <form action="/deleteProduct/{idProduct}" method="post">
         <tr th:each="product : ${products}">
             <div class="news-catalog-item">
 
@@ -27,9 +27,8 @@
                         <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
 
                         <span sec:authorize="isAuthenticated()">
-                            <label>Количество:<br><input type="number" name="amount" class="form-control"></label><br>
                             <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
-                            <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                            <button type="submit" class="btn btn-success">Удалить товар</button>
                         </span>
 
 

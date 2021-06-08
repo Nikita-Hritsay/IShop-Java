@@ -1,14 +1,18 @@
 package com.courseproj.CourseProject.controllers;
 
-import com.courseproj.CourseProject.Entity.Product;
+import com.courseproj.CourseProject.Entity.*;
 import com.courseproj.CourseProject.jdbc.*;
-import com.sun.tools.javac.Main;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -17,14 +21,17 @@ public class MainController {
     private final AllProductsDAOImpl allProductsDAO;
     private final GraphicsCardDAOImpl graphicsCardDAO;
     private final UserDAOImpl userDAO;
+    private final ReceiptDAOImpl receiptDAO;
+    private Basket basket = new Basket();
 
 
     @Autowired
-    public MainController(MotherboardDAOImpl motherboardDAO, AllProductsDAOImpl allProductsDAO, GraphicsCardDAOImpl graphicsCardDAO,UserDAOImpl userDAO) {
+    public MainController(MotherboardDAOImpl motherboardDAO, AllProductsDAOImpl allProductsDAO, GraphicsCardDAOImpl graphicsCardDAO,UserDAOImpl userDAO, ReceiptDAOImpl receiptDAO) {
         this.motherboardDAO = motherboardDAO;
         this.allProductsDAO = allProductsDAO;
         this.graphicsCardDAO = graphicsCardDAO;
         this.userDAO = userDAO;
+        this.receiptDAO = receiptDAO;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -59,12 +66,58 @@ public class MainController {
         return "redirect:/";
     }
 
+    @GetMapping("/basket")
+    public String basketPage(Model model){
+        model.addAttribute("baskets", basket.getBasketList());
+        return "basket";
+    }
+
+    @PostMapping("/basket")
+    public String BasketPagePost(Model model, @RequestParam String name, @RequestParam String delivery_info) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        receiptDAO.save_receipt(new Order(basket.getFullPrice()), authentication.getName());
+        ArrayList<Product_basket> product_baskets = basket.getProduct_basketList();
+        for(int i = 0; i < product_baskets.size(); i++){
+            receiptDAO.saveReceiptProduct(authentication.getName(), product_baskets.get(i));
+        }
+        Delivery delivery = new Delivery(name, delivery_info);
+        receiptDAO.saveDelivery(delivery, authentication.getName());
+        basket.delete_all();
+        return "redirect:/";
+    }
+
     @GetMapping("/admin")
     public String admin(Model model){
         model.addAttribute("title", "Admin page");
         model.addAttribute("account", "аккаунт");
         return "admin";
     }
+
+    @GetMapping("/orders")
+    public String order(Model model){
+        List<Order> list = receiptDAO.showAllOrders();
+        model.addAttribute("orders", list);
+        return "orders";
+    }
+
+    @GetMapping("/order/{idReceipt}")
+    public String orderId(Model model, @PathVariable int idReceipt){
+        List<Product_basket> product_baskets = receiptDAO.index_product_basket(idReceipt);
+        User user = userDAO.getUserByReceiptid(idReceipt);
+        Delivery delivery = receiptDAO.showDeliveryInfo(idReceipt);
+        model.addAttribute("idReceipt", idReceipt);
+        model.addAttribute("product_baskets", product_baskets);
+        model.addAttribute("userInfo", user);
+        model.addAttribute("delivery_info", delivery);
+        return "orderid";
+    }
+
+    @PostMapping("/order/{idReceipt}")
+    public String orderIdPost(Model model, @RequestParam String status, @RequestParam int idReceipt){
+        receiptDAO.changeStatus(status, idReceipt);
+        return "redirect:/";
+    }
+
 
     @GetMapping("/login")
     public String getLogin(@RequestParam(value = "error", required = false) String error,
@@ -73,6 +126,22 @@ public class MainController {
         model.addAttribute("error", error != null);
         model.addAttribute("logout", logout != null);
         return "login";
+    }
+
+    @GetMapping("/registration")
+    public String registration(Model model){
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String registrationPost(Model model, @RequestParam String Firstname,
+                                   @RequestParam String Lastname,
+                                   @RequestParam String Patronymic,
+                                   @RequestParam String Telephone,
+                                   @RequestParam String Login,
+                                   @RequestParam String Password){
+        userDAO.addUser(Firstname, Lastname, Patronymic, Telephone, Login, Password);
+        return "redirect:/";
     }
 
     @GetMapping("/motherboard")
@@ -87,14 +156,60 @@ public class MainController {
         return "/productid";
     }
 
+    @PostMapping("/product/{idProduct}")
+    public String get_product_by_idPost(Model model, @RequestParam String amount, @RequestParam int idProduct){
+        Product product = allProductsDAO.index(idProduct);
+        basket.add_to_basket(product, Integer.parseInt(amount));
+        return "redirect:/";
+    }
+
     @GetMapping("/graphicsCard")
     public String graphicsCard_all(Model model){
         model.addAttribute("products", graphicsCardDAO.getAllGraphicsCards());
         return "/motherboard";
     }
 
+    @GetMapping("/addProduct")
+    public String addProduct(Model model){
+        return "addProduct";
+    }
 
+    @PostMapping("/addProduct")
+    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int Img_idImg, @RequestParam int idType){
+        allProductsDAO.addProduct(name, price, Img_idImg, idType);
+        return "redirect:/";
+    }
 
+    @GetMapping("/editProduct")
+    public String deleteProduct(Model model){
+        model.addAttribute("products", allProductsDAO.getAllProducts());
+        return "editProduct";
+    }
+
+    @GetMapping("/deleteProduct/{idProduct}")
+    public String deleteProductId(Model model, @PathVariable int idProduct){
+        model.addAttribute("products", allProductsDAO.index(idProduct));
+        return "deleteProductid";
+    }
+
+    @PostMapping("/deleteProduct/{idProduct}")
+    public String deleteProductIdPost(Model model, @RequestParam int idProduct){
+        allProductsDAO.deleteProduct(idProduct);
+        return "redirect:/";
+    }
+
+    @GetMapping("/updateProduct/{idProduct}")
+    public String updateProductId(Model model, @PathVariable int idProduct){
+        model.addAttribute("products", allProductsDAO.index(idProduct));
+        return "updateProductid";
+    }
+
+    @PostMapping("/updateProduct/{idProduct}")
+    public String updateProductIdPost(Model model, @RequestParam String Name, @RequestParam int Price, @RequestParam int idType, @RequestParam int idProduct){
+        System.out.println(Name + " " + Price + " " + idType + " " + idProduct );
+        allProductsDAO.updateProduct(Name, Price, idType, idProduct);
+        return "redirect:/";
+    }
 
 
 

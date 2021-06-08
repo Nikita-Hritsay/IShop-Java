@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+
+<header th:insert="blocks/header :: header"></header>
+
+<div class="news-catalog catalog_animation">
+    <div class="news-catalog_name">
+        <h3 class="news-catalog_name_text">Товары в заказе</h3>
+    </div>
+    <div class="news_list">
+        <tr th:each="product_basket : ${product_baskets}">
+            <div class="news-catalog-item">
+
+                <div class="product">
+                    <img th:src="${product_basket.getPath_to_file()}" th:alt="${product_basket.getDescription()}" class="product-img">
+                    <div class="product-info">
+                        <p class="product-info info-text-first"><td th:text="${product_basket.getName()}"></td></p>
+                        <p class="product-info info-text-second"><td th:text="${product_basket.getPrice()}"></td></p>
+                        <p class="product-info info-text-second"><td th:text="${product_basket.getIdProduct()}"></td></p>
+                    </div>
+                </div>
+
+            </div>
+        </tr>
+    </div>
+    <div class="news-catalog_name">
+        <h3 class="news-catalog_name_text">Личные данные</h3>
+    </div>
+    <div class="news_list">
+        <tr th:each="user : ${userInfo}">
+            <label>Имя: <td th:text="${user.getFirstname()}"></td></label>
+            <label>Фамилия: <td th:text="${user.getLastname()}"></td></label>
+            <label>Отчество: <td th:text="${user.getPatronymic()}"></td></label>
+            <label>Телефон: <td th:text="${user.getTelephone()}"></td></label>
+        </tr>
+    </div>
+
+    <div class="news-catalog_name">
+        <h3 class="news-catalog_name_text"> Данные доставки</h3>
+    </div>
+    <div class="news_list">
+        <tr th:each="user : ${userInfo}">
+            <label>Форма доставки: <td th:text="${delivery_info.getDeliveryInfo()}"></td></label>
+            <label>Адрес доставки: <td th:text="${delivery_info.getName()}"></td></label>
+        </tr>
+    </div>
+
+    <form action="/order/{idReceipt}" method="post">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <input th:value="${idReceipt}" th:name="idReceipt" type="hidden">
+        <button type="submit" class="btn btn-success">Изменить статус заказа</button>
+        <p><input list="status" type="text" name="status"></p>
+        <datalist id="status">
+            <option>В обработке</option>
+            <option>Готов</option>
+            <option>Доставлен</option>
+            <option>Отменен</option>
+        </datalist>
+
+    </form>
+
+
+
+
+
+</div>
+
+</body>
+</html>

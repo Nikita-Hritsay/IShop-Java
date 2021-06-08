@@ -3,9 +3,9 @@
 <head>
     <title th:text="${title}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script src="/js/main.js" defer></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 
@@ -13,23 +13,27 @@
 <header th:insert="blocks/header :: header"></header>
 
 
+
 <div class="container mt-5 mb-5">
     <h1 th:text="${title}"/>
-    <form action="/product/{idProduct}" method="post">
+    <form action="/updateProduct/{idProduct}" method="post">
         <tr th:each="product : ${products}">
             <div class="news-catalog-item">
 
                 <div class="product">
                     <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
                     <div class="product-info">
-                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-                        <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
-                        <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
+
+
+                        <label>Name: <td th:text="${product.getName()}"></td><br><input type="text" name="Name" value="name" class="form-control"></label><br>
+                        <label>Price: <td th:text="${product.getPrice()}"></td><br><input type="number" name="Price" value="0" class="form-control"></label><br>
+                        <label>idType: <td th:text="${product.getIdType()}"></td><br><input type="number" name="idType" value="0" class="form-control"></label><br>
+
 
                         <span sec:authorize="isAuthenticated()">
-                            <label>Количество:<br><input type="number" name="amount" class="form-control"></label><br>
                             <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
-                            <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                            <button type="submit" class="btn btn-success">Изменить</button>
                         </span>
 
 
@@ -42,7 +46,5 @@
 </div>
 
 
-
 </body>
 </html>
-

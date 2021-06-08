@@ -7,11 +7,22 @@
             <div class="header-page_end">
                 <nav class="header-page_nav">
                     <ul class="header-page_ul">
-                        <li class="header-page_li">
-                            <a class="header-page_link" href="#">
-                                <span class="header-page_text">корзина</span>
-                            </a>
-                        </li>
+                        <span sec:authorize="hasRole('USER')">
+                            <a class="header-page_li" href="/basket">корзина </a>
+                        </span>
+
+                        <span sec:authorize="hasRole('ADMIN')">
+                            <a class="header-page_li" href="/orders">заказы </a>
+                        </span>
+
+                        <span sec:authorize="hasRole('ADMIN')">
+                            <a class="header-page_li" href="/addProduct">Добавить товар</a>
+                        </span>
+
+                        <span sec:authorize="hasRole('ADMIN')">
+                            <a class="header-page_li" href="/editProduct">Редактировать товар</a>
+                        </span>
+
 
                         <span sec:authorize="isAuthenticated()">
                             <a class="header-page_li" href="/profilePage">Аккаунт</a>

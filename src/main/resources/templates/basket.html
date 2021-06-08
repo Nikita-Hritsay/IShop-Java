@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+
+
+<header th:insert="blocks/header :: header"></header>
+
+
+
+    <div class="news-catalog catalog_animation">
+        <div class="news_list">
+            <h1 th:text="${title}"/>
+            <form action="/basket" method="post">
+                <button type="submit" class="btn btn-success">Оформить заказ</button>
+                    <p><input list="delivery" name="name"></p>
+                    <datalist id="delivery">
+                        <option>Доставка домой</option>
+                        <option>Доставка в отделение</option>
+                        <option>Доставка почтой</option>
+                    </datalist>
+
+                <input type="text" name="delivery_info" class="form-control" value="Введите адресс доставки">
+                <tr th:each="basket : ${baskets}">
+                    <div class="news-catalog-item">
+
+                        <div class="product">
+                            <div class="product-info">
+                                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                                <img th:src="${basket.getPath_to_file()}" th:alt="${basket.getDescription()}" class="product-img">
+                                <p class="product-info info-text-first"><td th:text="${basket.getPrice()}"></td></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </tr>
+            </form>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>
+

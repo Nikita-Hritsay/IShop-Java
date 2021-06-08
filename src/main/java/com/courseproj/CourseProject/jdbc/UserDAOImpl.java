@@ -49,4 +49,18 @@ public class UserDAOImpl implements UserDAO{
         jdbcTemplate.update(query);
     }
 
+    @Override
+    public User getUserByReceiptid(int idReceipt) {
+        return jdbcTemplate.query("select user.iduser, user.Firstname, user.Login, user.Lastname, user.Patronymic, user.Telephone , idReceipt from receipt\n" +
+                        "join user on user.iduser = receipt.user_iduser\n" +
+                        "where idReceipt = ?",
+                new Object[]{idReceipt}, new UserMapper())
+                .stream().findAny().orElse(null);
+    }
+
+    @Override
+    public void addUser(String Firstname, String Lastname, String Patronymic, String Telephone, String Login, String Password) {
+        jdbcTemplate.update("insert into user(Login, Firstname, Lastname, Patronymic, Telephone, User_password, idRole) values(?, ?, ?, ?, ?, ?, ?)",
+                Login, Firstname, Lastname, Patronymic, Telephone, Password, 22);
+    }
 }
