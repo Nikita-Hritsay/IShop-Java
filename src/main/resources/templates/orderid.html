@@ -21,9 +21,9 @@
                 <div class="product">
                     <img th:src="${product_basket.getPath_to_file()}" th:alt="${product_basket.getDescription()}" class="product-img">
                     <div class="product-info">
-                        <p class="product-info info-text-first"><td th:text="${product_basket.getName()}"></td></p>
-                        <p class="product-info info-text-second"><td th:text="${product_basket.getPrice()}"></td></p>
-                        <p class="product-info info-text-second"><td th:text="${product_basket.getIdProduct()}"></td></p>
+                        <p class="product-info info-text-first">Name: <td th:text="${product_basket.getName()}"></td></p>
+                        <p class="product-info info-text-second">Price: <td th:text="${product_basket.getPrice()}"></td></p>
+                        <p class="product-info info-text-second">ID: <td th:text="${product_basket.getIdProduct()}"></td></p>
                     </div>
                 </div>
 
@@ -51,21 +51,21 @@
             <label>Адрес доставки: <td th:text="${delivery_info.getName()}"></td></label>
         </tr>
     </div>
+    <div class="news_list">
+        <form action="/order/{idReceipt}" method="post">
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+            <input th:value="${idReceipt}" th:name="idReceipt" type="hidden">
+            <button type="submit" class="btn btn-success">Изменить статус заказа</button>
+            <p><input list="status" type="text" name="status"></p>
+            <datalist id="status">
+                <option>В обработке</option>
+                <option>Готов</option>
+                <option>Доставлен</option>
+                <option>Отменен</option>
+            </datalist>
 
-    <form action="/order/{idReceipt}" method="post">
-        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-        <input th:value="${idReceipt}" th:name="idReceipt" type="hidden">
-        <button type="submit" class="btn btn-success">Изменить статус заказа</button>
-        <p><input list="status" type="text" name="status"></p>
-        <datalist id="status">
-            <option>В обработке</option>
-            <option>Готов</option>
-            <option>Доставлен</option>
-            <option>Отменен</option>
-        </datalist>
-
-    </form>
-
+        </form>
+    </div>
 
 
 

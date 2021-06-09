@@ -22,16 +22,18 @@ public class MainController {
     private final GraphicsCardDAOImpl graphicsCardDAO;
     private final UserDAOImpl userDAO;
     private final ReceiptDAOImpl receiptDAO;
+    private final ProcessorDAOImpl processorDAO;
     private Basket basket = new Basket();
 
 
     @Autowired
-    public MainController(MotherboardDAOImpl motherboardDAO, AllProductsDAOImpl allProductsDAO, GraphicsCardDAOImpl graphicsCardDAO,UserDAOImpl userDAO, ReceiptDAOImpl receiptDAO) {
+    public MainController(MotherboardDAOImpl motherboardDAO, AllProductsDAOImpl allProductsDAO, GraphicsCardDAOImpl graphicsCardDAO,UserDAOImpl userDAO, ReceiptDAOImpl receiptDAO, ProcessorDAOImpl processorDAO) {
         this.motherboardDAO = motherboardDAO;
         this.allProductsDAO = allProductsDAO;
         this.graphicsCardDAO = graphicsCardDAO;
         this.userDAO = userDAO;
         this.receiptDAO = receiptDAO;
+        this.processorDAO = processorDAO;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -168,6 +170,14 @@ public class MainController {
         model.addAttribute("products", graphicsCardDAO.getAllGraphicsCards());
         return "/motherboard";
     }
+
+    @GetMapping("/processor")
+    public String processor_all(Model model){
+        model.addAttribute("products", processorDAO.getAllProcessors());
+        return "/processors";
+    }
+
+
 
     @GetMapping("/addProduct")
     public String addProduct(Model model){
