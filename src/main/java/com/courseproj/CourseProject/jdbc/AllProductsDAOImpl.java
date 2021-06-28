@@ -56,21 +56,21 @@ public class AllProductsDAOImpl implements AllProductsDAO{
 
     @Override
     public void deleteProduct(int idProduct) {
-        jdbcTemplate.update("delete from testcourseproject.reciept_has_product where idProduct = ?", idProduct);
-        jdbcTemplate.update("delete from testcourseproject.product where idProduct = ?", idProduct);
+        jdbcTemplate.update("delete from courseproject.reciept_has_product where idProduct = ?", idProduct);
+        jdbcTemplate.update("delete from courseproject.product where idProduct = ?", idProduct);
     }
 
     @Override
     public void updateProduct(String name, int price, int idType, int idProduct) {
         Product product = index(idProduct);
         if(price != product.getPrice()){
-            jdbcTemplate.update("update testcourseproject.product set price = "+ price +" where idProduct = ?", idProduct);
+            jdbcTemplate.update("update courseproject.product set price = "+ price +" where idProduct = ?", idProduct);
         }
         if(name != product.getName()){
-            jdbcTemplate.update("update testcourseproject.product set name = '"+ name +"' where idProduct = ?", idProduct);
+            jdbcTemplate.update("update courseproject.product set name = '"+ name +"' where idProduct = ?", idProduct);
         }
         if(idType != product.getIdType()){
-            jdbcTemplate.update("update testcourseproject.product set idType = "+ idType +  " where idProduct = ?", idProduct);
+            jdbcTemplate.update("update courseproject.product set idType = "+ idType +  " where idProduct = ?", idProduct);
         }
     }
 }
