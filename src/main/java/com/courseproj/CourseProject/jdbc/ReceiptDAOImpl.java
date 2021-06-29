@@ -36,11 +36,11 @@ public class ReceiptDAOImpl implements ReceiptDAO{
     }
 
     @Override
-    public void saveReceiptProduct(String login, Product_basket product) {
+    public void saveReceiptProduct(String login, Basket_product product) {
         jdbcTemplate.update("INSERT INTO reciept_has_product (idProduct, idReceipt, amount, price)\n" +
                         "     VALUES (?, (select MAX(idReceipt) from receipt \n" +
                         "where user_iduser = (select idUser from user where login = ?)), ?, ?);",
-                product.getIdPoduct(), login, product.getAmount(), product.getPrice());
+                product.getIdProduct(), login, product.getAmount(), product.getPrice());
     }
 
     @Override

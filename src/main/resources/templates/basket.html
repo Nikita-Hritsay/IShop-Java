@@ -21,23 +21,30 @@
         <h3 class="news-catalog_name_text">Все заказы</h3>
     </div>
     <form action="/basket" method="post">
-        <button type="submit" class="btn btn-success">Оформить заказ</button>
-        <p><input list="delivery" name="name"></p>
-        <datalist id="delivery">
-            <option>Доставка домой</option>
-            <option>Доставка в отделение</option>
-            <option>Доставка почтой</option>
-        </datalist>
-        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-        <input type="text" name="delivery_info" class="form-control col-xs-3" placeholder="Введите адресс доставки">
+        <div class="commit_basket">
+            <span sec:authorize="isAuthenticated()">
+                <button type="submit" class="btn btn-success">Оформить заказ</button>
+                <p><input list="delivery" name="name"></p>
+                <datalist id="delivery">
+                    <option>Доставка домой</option>
+                    <option>Доставка в отделение</option>
+                    <option>Доставка почтой</option>
+                </datalist>
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                <input type="text" name="delivery_info" class="form-control col-xs-3" placeholder="Введите адресс доставки">
+            </span>
+        </div>
     </form>
+
+
     <div class="news_list">
         <tr th:each="basket : ${baskets}">
             <div class="news-catalog-item">
                 <div class="product">
                     <div class="product-info">
                         <img th:src="${basket.getPath_to_file()}" th:alt="${basket.getDescription()}" class="product-img">
-                        <p class="product-info info-text-first"><td th:text="${basket.getPrice()}"></td></p>
+                        <p class="product-info info-text-first">Цена<td th:text="${basket.getPrice()}"></td></p>
+
                     </div>
                 </div>
 

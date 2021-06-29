@@ -13,33 +13,33 @@
 <header th:insert="blocks/header :: header"></header>
 
 
-<div class="container mt-5 mb-5">
-    <h1 th:text="${title}"/>
-    <form action="/product/{idProduct}" method="post">
-        <tr th:each="product : ${products}">
-            <div class="news-catalog-item">
 
-                <div class="product">
+<div class="Product_page_outer">
+    <form action="/product/{idProduct}" method="post">
+            <tr th:each="product : ${products}">
+                <div class="products">
                     <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
-                    <div class="product-info">
+                    <div class="product_info">
                         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
                         <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
-                        <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
-
-                        <span sec:authorize="isAuthenticated()">
-                            <label>Количество:<br><input type="number" name="amount" class="form-control"></label><br>
-                            <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
-                            <button type="submit" class="btn btn-success">Добавить в корзину</button>
-                        </span>
-
-
+                        <p class="product-info info-text-second">Цена: <td th:text="${product.getPrice()}"></td></p>
                     </div>
                 </div>
+                <div class="add_basket">
+                    <span sec:authorize="isAuthenticated()">
+                        <label>Количество:<br><input type="number" name="amount" class="form-control"></label><br>
+                        <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
+                        <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                    </span>
+                </div>
 
-            </div>
-        </tr>
+            </tr>
+
     </form>
 </div>
+
+
+
 
 
 
