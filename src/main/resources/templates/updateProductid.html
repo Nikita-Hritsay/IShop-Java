@@ -14,33 +14,22 @@
 
 
 
-<div class="container mt-5 mb-5">
+<div class="Product_page_outer">
     <h1 th:text="${title}"/>
     <form action="/updateProduct/{idProduct}" method="post">
         <tr th:each="product : ${products}">
-            <div class="news-catalog-item">
 
-                <div class="product">
-                    <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
-                    <div class="product-info">
+            <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
+            <label>Name: <td th:text="${product.getName()}"></td><br><input type="text" name="Name" th:value="${product.getName()}" class="form-control"></label><br>
+            <label>Price: <td th:text="${product.getPrice()}"></td><br><input type="number" name="Price" th:value="${product.getPrice()}" class="form-control"></label><br>
+            <label>idType: <td th:text="${product.getIdType()}"></td><br><input type="number" name="idType" th:value="${product.getIdType()}" class="form-control"></label><br>
+            <label>Description: <td th:text="${product.getDescription()}"></td><br><textarea  style="width: 600px; height: 200px;" name="Description" th:value="${product.getDescription()}" class="form-control"></textarea></label><br>
+            <span sec:authorize="isAuthenticated()">
+                <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
+                <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                <button type="submit" class="btn btn-success">Изменить</button>
+            </span>
 
-
-                        <label>Name: <td th:text="${product.getName()}"></td><br><input type="text" name="Name" value="name" class="form-control"></label><br>
-                        <label>Price: <td th:text="${product.getPrice()}"></td><br><input type="number" name="Price" value="0" class="form-control"></label><br>
-                        <label>idType: <td th:text="${product.getIdType()}"></td><br><input type="number" name="idType" value="0" class="form-control"></label><br>
-
-
-                        <span sec:authorize="isAuthenticated()">
-                            <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
-                            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
-                            <button type="submit" class="btn btn-success">Изменить</button>
-                        </span>
-
-
-                    </div>
-                </div>
-
-            </div>
         </tr>
     </form>
 </div>

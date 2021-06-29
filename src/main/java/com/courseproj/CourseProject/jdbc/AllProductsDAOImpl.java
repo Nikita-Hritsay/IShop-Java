@@ -20,14 +20,14 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.name as type, img.description," +
+    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
             " JOIN img on img.idImg = product.Img_idImg " +
             " where idProduct = ? " +
             " ORDER BY product.idProduct;";
-    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.name as type, img.description," +
+    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
@@ -50,8 +50,8 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public void addProduct(String name, int price, int Img_idImg, int idType) {
-        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType) values(?, ?, ?, ?)", name, price, Img_idImg, idType);
+    public void addProduct(String name, int price, int Img_idImg, int idType, String Description) {
+        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_idImg, idType, Description);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public void updateProduct(String name, int price, int idType, int idProduct) {
+    public void updateProduct(String name, int price, int idType, int idProduct, String Description) {
         Product product = index(idProduct);
         if(price != product.getPrice()){
             jdbcTemplate.update("update courseproject.product set price = "+ price +" where idProduct = ?", idProduct);
@@ -71,6 +71,9 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         }
         if(idType != product.getIdType()){
             jdbcTemplate.update("update courseproject.product set idType = "+ idType +  " where idProduct = ?", idProduct);
+        }
+        if(Description != product.getDescription()){
+            jdbcTemplate.update("update courseproject.product set productDescription = '"+ Description +  "' where idProduct = ?", idProduct);
         }
     }
 }

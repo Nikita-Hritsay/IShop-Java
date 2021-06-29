@@ -61,8 +61,8 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int Img_idImg, @RequestParam int idType){
-        allProductsDAO.addProduct(name, price, Img_idImg, idType);
+    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int Img_idImg, @RequestParam int idType, @RequestParam String description){
+        allProductsDAO.addProduct(name, price, Img_idImg, idType, description);
         return "redirect:/";
     }
 
@@ -91,9 +91,8 @@ public class ProductController {
     }
 
     @PostMapping("/updateProduct/{idProduct}")
-    public String updateProductIdPost(Model model, @RequestParam String Name, @RequestParam int Price, @RequestParam int idType, @RequestParam int idProduct){
-        System.out.println(Name + " " + Price + " " + idType + " " + idProduct );
-        allProductsDAO.updateProduct(Name, Price, idType, idProduct);
+    public String updateProductIdPost(Model model, @RequestParam String Name, @RequestParam int Price, @RequestParam String Description, @RequestParam int idType, @RequestParam int idProduct){
+        allProductsDAO.updateProduct(Name, Price, idType, idProduct, Description);
         return "redirect:/";
     }
 

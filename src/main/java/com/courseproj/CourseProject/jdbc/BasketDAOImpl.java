@@ -13,7 +13,7 @@ public class BasketDAOImpl implements  BasketDAO{
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final String SQL_GET_PRODUCTS_FROM_BASKET = "select product.idProduct,  product.name, product.price, type.name as type, img.description,img.path_to_file \n" +
+    private final String SQL_GET_PRODUCTS_FROM_BASKET = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription ,img.path_to_file \n" +
             "from product\n" +
             "JOIN img on img.idImg = product.Img_idImg\n" +
             "JOIN type ON type.idType = product.idType\n" +
@@ -39,7 +39,7 @@ public class BasketDAOImpl implements  BasketDAO{
 
     @Override
     public List<Basket_product> getBasket_product(String login) {
-        return jdbcTemplate.query("select basket_product.amount, product.idProduct, product.price, img.path_to_file, product.name from basket_product" +
+        return jdbcTemplate.query("select basket_product.amount, product.idProduct, product.price, img.path_to_file, product.productDescription, product.name from basket_product" +
                 " join product on product.idProduct = basket_product.product_idProduct" +
                 " join type on product.idType = type.idType" +
                 " join img on product.Img_idImg = img.idImg" +

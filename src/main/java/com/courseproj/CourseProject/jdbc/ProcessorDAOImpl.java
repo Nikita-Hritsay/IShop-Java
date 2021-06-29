@@ -13,14 +13,14 @@ public class ProcessorDAOImpl implements  ProcessorDAO{
 
     private final JdbcTemplate jdbcTemplate;
 
-    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.name as type, img.description," +
+    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
             " JOIN img on img.idImg = product.Img_idImg " +
             " where type.name = 'processor' " +
             " ORDER BY product.idProduct;";
-    private static final String SQL_GET_INDEX = "select product.idProduct,  product.name, product.price, type.name as type, img.description," +
+    private static final String SQL_GET_INDEX = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
