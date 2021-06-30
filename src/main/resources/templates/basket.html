@@ -36,6 +36,11 @@
         </div>
     </form>
 
+    <form action="/delete_basket" method="post">
+        <button type="submit" class="btn btn-success">Очистить корзину</button>
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+    </form>
+
 
     <div class="news_list">
         <tr th:each="basket : ${baskets}">

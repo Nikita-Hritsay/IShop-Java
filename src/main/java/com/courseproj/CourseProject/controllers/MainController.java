@@ -62,6 +62,13 @@ public class MainController {
         return "redirect:/";
     }
 
+    @PostMapping("/delete_basket")
+    public String delete_basket(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        basketDAO.deleteBasket(authentication.getName());
+        return "redirect:/";
+    }
+
     @GetMapping("/admin")
     public String admin(Model model){
         model.addAttribute("title", "Admin page");

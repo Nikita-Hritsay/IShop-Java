@@ -24,6 +24,9 @@
                         <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
                         <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
                         <a th:href="@{/product/} + ${product.getIdProduct()}" class="header-item">Перейти</a>
+                        <button type="submit" class="btn btn-success">Добавить в корзину</button>
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                        <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
                     </div>
                 </div>
 
