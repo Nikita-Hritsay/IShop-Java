@@ -7,7 +7,7 @@ import com.courseproj.CourseProject.Entity.Product;
 import java.util.List;
 
 public interface BasketDAO {
-    void deleteBasket();
+    void deleteBasket(String login);
     void addToBasket_has_product(String login, Product product, int amount);
     List<Basket_product> getBasket_product(String login);
     List<Product> getBasket(String login);

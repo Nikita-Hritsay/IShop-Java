@@ -62,5 +62,7 @@ public class UserDAOImpl implements UserDAO{
     public void addUser(String Firstname, String Lastname, String Patronymic, String Telephone, String Login, String Password) {
         jdbcTemplate.update("insert into user(Login, Firstname, Lastname, Patronymic, Telephone, User_password, idRole) values(?, ?, ?, ?, ?, ?, ?)",
                 Login, Firstname, Lastname, Patronymic, Telephone, Password, 22);
+        jdbcTemplate.update("insert into basket(Price, user_idUser) values(0, ?)", new UserDAOImpl(jdbcTemplate).getCurrentUser(Login).getIdUser());
+
     }
 }

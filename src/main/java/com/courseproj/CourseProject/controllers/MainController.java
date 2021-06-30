@@ -39,7 +39,6 @@ public class MainController {
         this.basketDAO = basketDAO;
     }
 
-
     @GetMapping("/basket")
     public String basketPage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -59,7 +58,7 @@ public class MainController {
         }
         Delivery delivery = new Delivery(name, delivery_info);
         receiptDAO.saveDelivery(delivery, authentication.getName());
-
+        basketDAO.deleteBasket(authentication.getName());
         return "redirect:/";
     }
 
@@ -94,6 +93,4 @@ public class MainController {
         receiptDAO.changeStatus(status, idReceipt);
         return "redirect:/";
     }
-
-
 }

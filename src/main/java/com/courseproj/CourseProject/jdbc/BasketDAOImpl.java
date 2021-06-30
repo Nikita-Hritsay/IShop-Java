@@ -27,8 +27,8 @@ public class BasketDAOImpl implements  BasketDAO{
     }
 
     @Override
-    public void deleteBasket() {
-
+    public void deleteBasket(String login) {
+        jdbcTemplate.update("delete from basket_product where basket_user_idUser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
     }
 
     @Override
