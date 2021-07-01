@@ -41,16 +41,40 @@ public class Сategories {
         return "home";
     }
 
+    @PostMapping("/")
+    public String homePOST(Model model, @RequestParam int idProduct){
+        Product product = allProductsDAO.index(idProduct);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
+        return "redirect:/";
+    }
+
     @GetMapping("/motherboard")
     public String motherboard_all(Model model){
         model.addAttribute("products", motherboardDAO.getAllMotherboards());
         return "/motherboard";
     }
 
+    @PostMapping("/motherboard")
+    public String motherboard_allPOST(Model model, @RequestParam int idProduct){
+        Product product = allProductsDAO.index(idProduct);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
+        return "redirect:/";
+    }
+
     @GetMapping("/graphicsCard")
     public String graphicsCard_all(Model model){
         model.addAttribute("products", graphicsCardDAO.getAllGraphicsCards());
         return "/motherboard";
+    }
+
+    @PostMapping("/graphicsCard")
+    public String graphicsCard_allPOST(Model model, @RequestParam int idProduct){
+        Product product = allProductsDAO.index(idProduct);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
+        return "redirect:/";
     }
 
     @GetMapping("/processor")

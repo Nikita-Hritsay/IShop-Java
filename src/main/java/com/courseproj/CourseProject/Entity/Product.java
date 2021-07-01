@@ -6,13 +6,10 @@ public class Product {
     private int price;
     private int idImg;
     private int idType;
+    private int amount;
     private String type;
     private String description;
     private String path_to_file;
-
-    public String getType() {
-        return type;
-    }
 
     @Override
     public String toString() {
@@ -22,10 +19,35 @@ public class Product {
                 ", price=" + price +
                 ", idImg=" + idImg +
                 ", idType=" + idType +
+                ", amount=" + amount +
                 ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", path_to_file='" + path_to_file + '\'' +
                 '}';
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public Product(int idProduct, String name, int price, int idImg, int idType, int amount, String type, String description, String path_to_file) {
+        this.idProduct = idProduct;
+        this.name = name;
+        this.price = price;
+        this.idImg = idImg;
+        this.idType = idType;
+        this.amount = amount;
+        this.type = type;
+        this.description = description;
+        this.path_to_file = path_to_file;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setType(String type) {

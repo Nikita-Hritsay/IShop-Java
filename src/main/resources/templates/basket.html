@@ -18,12 +18,15 @@
 
 <div class="news-catalog catalog_animation">
     <div class="news-catalog_name">
-        <h3 class="news-catalog_name_text">Все заказы</h3>
+        <h3 class="news-catalog_name_text">Корзина</h3>
     </div>
     <form action="/basket" method="post">
         <div class="commit_basket">
             <span sec:authorize="isAuthenticated()">
                 <button type="submit" class="btn btn-success">Оформить заказ</button>
+
+                <p class="product-info info-text-first">Общая цена заказа: <td th:text="${FullPrice.getPrice()}"></td></p>
+
                 <p><input list="delivery" name="name"></p>
                 <datalist id="delivery">
                     <option>Доставка домой</option>
@@ -42,14 +45,16 @@
     </form>
 
 
+
     <div class="news_list">
         <tr th:each="basket : ${baskets}">
+
             <div class="news-catalog-item">
                 <div class="product">
                     <div class="product-info">
                         <img th:src="${basket.getPath_to_file()}" th:alt="${basket.getDescription()}" class="product-img">
-                        <p class="product-info info-text-first">Цена<td th:text="${basket.getPrice()}"></td></p>
-
+                        <p class="product-info info-text-first">Цена <td th:text="${basket.getPrice()}"></td></p>
+                        <p class="product-info info-text-first">Количество <td th:text="${basket.getAmount()}"></td></p>
                     </div>
                 </div>
 

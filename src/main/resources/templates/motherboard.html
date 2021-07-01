@@ -17,7 +17,7 @@
     <div class="news_list">
         <tr th:each="product : ${products}">
             <div class="news-catalog-item">
-
+                <form action="/motherboard" method="post">
                     <div class="product">
                         <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
                         <div class="product-info">
@@ -29,7 +29,7 @@
                             <input th:name="idProduct" th:value="${product.getIdProduct()}" type="hidden">
                         </div>
                     </div>
-
+                </form>
             </div>
         </tr>
     </div>

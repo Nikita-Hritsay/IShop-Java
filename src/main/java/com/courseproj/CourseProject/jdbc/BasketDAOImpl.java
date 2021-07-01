@@ -13,7 +13,7 @@ public class BasketDAOImpl implements  BasketDAO{
 
     private final JdbcTemplate jdbcTemplate;
 
-    private final String SQL_GET_PRODUCTS_FROM_BASKET = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription ,img.path_to_file \n" +
+    private final String SQL_GET_PRODUCTS_FROM_BASKET = "select product.idProduct,  product.name, product.price, basket_product.amount, type.name as type, product.productDescription ,img.path_to_file \n" +
             "from product\n" +
             "JOIN img on img.idImg = product.Img_idImg\n" +
             "JOIN type ON type.idType = product.idType\n" +
@@ -29,11 +29,12 @@ public class BasketDAOImpl implements  BasketDAO{
     @Override
     public void deleteBasket(String login) {
         jdbcTemplate.update("delete from basket_product where basket_user_idUser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
+        jdbcTemplate.update("update basket set price = 0 where user_iduser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
     }
 
     @Override
     public BasketU getFullPrice(String login) {
-        return jdbcTemplate.query("select * from basket where user_iduser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser(),   new BasketMapper())
+        return jdbcTemplate.query("select idBasket, User_idUser, price from basket where user_iduser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser(),   new BasketMapper())
                 .stream().findAny().orElse(null);
     }
 
@@ -48,10 +49,8 @@ public class BasketDAOImpl implements  BasketDAO{
 
     @Override
     public List<Product> getBasket(String login) {
-        List<Product> productList = jdbcTemplate.query(SQL_GET_PRODUCTS_FROM_BASKET
-                , new ProductMapper(), new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
-
-        return productList;
+        return jdbcTemplate.query(SQL_GET_PRODUCTS_FROM_BASKET
+                , new ProductMapperBasket(), new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
     }
 
     @Override
@@ -59,18 +58,22 @@ public class BasketDAOImpl implements  BasketDAO{
 
         List<Product> list = jdbcTemplate.query("select * from basket_product, product, type, img where product_idProduct = ?", new ProductMapper(), product.getIdProduct());
         if(list.isEmpty()) {
-            System.out.println("here2");
             jdbcTemplate.update("insert into courseproject.basket_product(amount, price, basket_idbasket, basket_user_iduser, product_idProduct) \n" +
                     "values(" + amount + ", " + product.getPrice() + " , (select idbasket from courseproject.basket where user_iduser = "
                     + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + "), " +
                     new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + ", " +
                     product.getIdProduct() + ");");
+            jdbcTemplate.update("update basket set price = (select sum(amount * price) from basket_product where basket_user_iduser = " +
+                    new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + ") " +
+                    " where user_iduser = " + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser());
         }else{
-            System.out.println("here3");
             jdbcTemplate.update("update basket_product set amount = amount + " + amount +
                     " where product_idProduct = " + product.getIdProduct() + " " +
                     " and basket_product.basket_idbasket = (select idbasket from basket where user_iduser = " +
                     new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + ")");
+            jdbcTemplate.update("update basket set price = price + " + product.getPrice() * amount + " " +
+                    "where user_iduser = (select iduser from user where login = '" + login + "' )");
+
         }
     }
 }

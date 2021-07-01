@@ -43,8 +43,7 @@ public class MainController {
     public String basketPage(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("baskets", basketDAO.getBasket(authentication.getName()));
-
-
+        model.addAttribute("FullPrice", basketDAO.getFullPrice(authentication.getName()));
         return "basket";
     }
 
