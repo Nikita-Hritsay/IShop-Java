@@ -39,6 +39,7 @@ public class ProductController {
 
     @GetMapping("/product/{idProduct}")
     public String get_product_by_id(Model model, @PathVariable int idProduct){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("products", allProductsDAO.index(idProduct));
         return "/productid";
     }
@@ -56,6 +57,7 @@ public class ProductController {
 
     @GetMapping("/addProduct")
     public String addProduct(Model model){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "addProduct";
     }
 
@@ -68,11 +70,13 @@ public class ProductController {
     @GetMapping("/editProduct")
     public String deleteProduct(Model model){
         model.addAttribute("products", allProductsDAO.getAllProducts());
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "editProduct";
     }
 
     @GetMapping("/deleteProduct/{idProduct}")
     public String deleteProductId(Model model, @PathVariable int idProduct){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("products", allProductsDAO.index(idProduct));
         return "deleteProductid";
     }
@@ -86,6 +90,7 @@ public class ProductController {
     @GetMapping("/updateProduct/{idProduct}")
     public String updateProductId(Model model, @PathVariable int idProduct){
         model.addAttribute("products", allProductsDAO.index(idProduct));
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "updateProductid";
     }
 

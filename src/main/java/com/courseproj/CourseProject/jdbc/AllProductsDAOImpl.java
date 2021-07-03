@@ -1,9 +1,6 @@
 package com.courseproj.CourseProject.jdbc;
 
-import com.courseproj.CourseProject.Entity.Product;
-import com.courseproj.CourseProject.Entity.ProductMapper;
-import com.courseproj.CourseProject.Entity.User;
-import com.courseproj.CourseProject.Entity.UserMapper;
+import com.courseproj.CourseProject.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -75,5 +72,19 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         if(Description != product.getDescription()){
             jdbcTemplate.update("update courseproject.product set productDescription = '"+ Description +  "' where idProduct = ?", idProduct);
         }
+    }
+
+    @Override
+    public List<Product> getByCategory(String name) {
+        return jdbcTemplate.query("select select product.idProduct,  product.name, product.price, type.name as type, product.productDescription, img.path_to_file" +
+                " from product " +
+                " JOIN img on img.idImg = product.Img_idImg " +
+                " join type on product.idType = type.idType" +
+                " where type.name = " + name, new ProductMapper());
+    }
+
+    @Override
+    public List<Type> getAllCategories() {
+        return jdbcTemplate.query("select idType, name from type", new TypeMapper());
     }
 }

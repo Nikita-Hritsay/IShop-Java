@@ -44,6 +44,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("baskets", basketDAO.getBasket(authentication.getName()));
         model.addAttribute("FullPrice", basketDAO.getFullPrice(authentication.getName()));
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "basket";
     }
 
@@ -72,12 +73,14 @@ public class MainController {
     public String admin(Model model){
         model.addAttribute("title", "Admin page");
         model.addAttribute("account", "аккаунт");
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "admin";
     }
 
     @GetMapping("/orders")
     public String order(Model model){
         List<Order> list = receiptDAO.showAllOrders();
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("orders", list);
         return "orders";
     }
@@ -85,6 +88,7 @@ public class MainController {
     @GetMapping("/order/{idReceipt}")
     public String orderId(Model model, @PathVariable int idReceipt){
         List<Product_basket> product_baskets = receiptDAO.index_product_basket(idReceipt);
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         User user = userDAO.getUserByReceiptid(idReceipt);
         Delivery delivery = receiptDAO.showDeliveryInfo(idReceipt);
         model.addAttribute("idReceipt", idReceipt);

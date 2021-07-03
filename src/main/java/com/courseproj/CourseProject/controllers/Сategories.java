@@ -20,6 +20,7 @@ public class Сategories {
     private final ReceiptDAOImpl receiptDAO;
     private final ProcessorDAOImpl processorDAO;
     private final BasketDAOImpl basketDAO;
+
     private Basket basket = new Basket();
 
 
@@ -38,6 +39,7 @@ public class Сategories {
     public String home(Model model){
         model.addAttribute("title", "Home page");
         model.addAttribute("products", allProductsDAO.getAllProducts());
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "home";
     }
 
@@ -51,6 +53,7 @@ public class Сategories {
 
     @GetMapping("/motherboard")
     public String motherboard_all(Model model){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("products", motherboardDAO.getAllMotherboards());
         return "/motherboard";
     }
@@ -65,6 +68,7 @@ public class Сategories {
 
     @GetMapping("/graphicsCard")
     public String graphicsCard_all(Model model){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("products", graphicsCardDAO.getAllGraphicsCards());
         return "/motherboard";
     }
@@ -79,6 +83,7 @@ public class Сategories {
 
     @GetMapping("/processor")
     public String processor_all(Model model){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("products", processorDAO.getAllProcessors());
         return "/processors";
     }
@@ -91,6 +96,19 @@ public class Сategories {
         return "redirect:/";
     }
 
+    @GetMapping("/category/{name}")
+    public String getByCategory(Model model, @RequestParam String name){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        model.addAttribute("products", allProductsDAO.getByCategory(name));
+        return "byCategory";
+    }
 
+    @PostMapping("/category/{name}")
+    public String getByCategoryPOST(Model model, @RequestParam int idProduct){
+        Product product = allProductsDAO.index(idProduct);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
+        return "redirect:/";
+    }
 
 }

@@ -23,7 +23,6 @@
                             <a class="header-page_li" href="/editProduct">Редактировать товар</a>
                         </span>
 
-
                         <span sec:authorize="isAuthenticated()">
                             <a class="header-page_li" href="/profilePage">Аккаунт</a>
                         </span>
@@ -41,15 +40,12 @@
     </header>
 
     <header class="main_header-section">
+
         <div class="main_header_lest_side">
             <div class="main_header_item headerButton">
-                <a href="/motherboard" class="header-item">Материнская плата</a>
-            </div>
-            <div class="main_header_item headerButton">
-                <a href="/graphicsCard" class="header-item">Видеокарты</a>
-            </div>
-            <div class="main_header_item headerButton">
-                <a href="/processor" class="header-item">Процессоры</a>
+                <tr th:each="category : ${categories}">
+                    <a th:href="@{/} + ${category.getName()}" class="header-item"><td th:text="${category.getName()}"></td></a>
+                </tr>
             </div>
         </div>
         <div class="header_button">

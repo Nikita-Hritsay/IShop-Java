@@ -36,6 +36,7 @@ public class UserController {
     public String user(Model model){
         model.addAttribute("title", "User page");
         model.addAttribute("account", "аккаунт");
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "user";
     }
 
@@ -44,6 +45,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = authentication.getName();
         model.addAttribute("users", userDAO.getCurrentUser(currentUser));
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "profilePage";
     }
 
