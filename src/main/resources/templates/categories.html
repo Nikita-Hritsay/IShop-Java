@@ -22,6 +22,7 @@
                         <div class="product-info">
                             <p class="product-info info-text-first"><td th:text="${category.getName()}"></td></p>
                             <p class="product-info info-text-second"><td th:text="${category.getId()}"></td></p>
+                            <a th:href="@{/deleteCategory/} + ${category.getId()}" class="header-item">Удаление</a>
                             <a th:href="@{/category/} + ${category.getId()}" class="header-item">Перейти</a>
                             <input th:name="idCategory" th:value="${category.getId()}" type="hidden">
                         </div>

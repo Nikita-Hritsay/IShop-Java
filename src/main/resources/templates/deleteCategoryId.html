@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<header th:insert="blocks/header :: header"></header>
+
+
+<div class="container mt-5 mb-5">
+    <h1 th:text="${title}"/>
+    <form action="/deleteCategory/{idCategory}" method="post">
+        <tr th:each="category : ${categoryId}">
+            <div class="news-catalog-item">
+
+                <div class="product">
+                    <div class="product-info">
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                        <p class="product-info info-text-first"><td th:text="${category.getName()}"></td></p>
+                        <p class="product-info info-text-second"><td th:text="${category.getId()}"></td></p>
+
+                        <span sec:authorize="isAuthenticated()">
+                            <input th:name="idCategory" th:value="${category.getId()}" type="hidden">
+                            <button type="submit" class="btn btn-success">Удалить категорию</button>
+                        </span>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </tr>
+    </form>
+</div>
+
+
+
+</body>
+</html>
+

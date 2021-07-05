@@ -94,7 +94,7 @@ public class Сategories {
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
         return "redirect:/";
     }
-    
+
     // Поиск через категорию
     @GetMapping("/byCategory/{idCategory}")
     public String byCategory(Model model, @PathVariable int idCategory){
@@ -113,7 +113,6 @@ public class Сategories {
 
     @GetMapping("/category")
     public String category(Model model){
-
         model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "categories";
     }
@@ -140,6 +139,19 @@ public class Сategories {
     @PostMapping("/addCategory")
     public String addCategoryPost(Model model, String name){
         allProductsDAO.addCategory(name);
+        return "redirect:/";
+    }
+
+    @GetMapping("/deleteCategory/{idCategory}")
+    public String deleteCategoryId(Model model, @PathVariable int idCategory){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        model.addAttribute("categoryId", allProductsDAO.getCategoryByIndex(idCategory));
+        return "deleteCategoryId";
+    }
+
+    @PostMapping("/deleteCategory/{idCategory}")
+    public String deleteCategoryIdPost(Model model, @RequestParam int idCategory){
+        allProductsDAO.deleteCategory(idCategory);
         return "redirect:/";
     }
 }
