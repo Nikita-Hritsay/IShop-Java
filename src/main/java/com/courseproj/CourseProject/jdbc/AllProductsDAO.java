@@ -12,5 +12,9 @@ public interface AllProductsDAO {
     void deleteProduct(int idProduct);
     void updateProduct(String name, int price, int idType, int idProduct, String Description);
     List<Type> getAllCategories();
-    List<Product> getByCategory(String name);
+    List<Product> getByCategory(int idCategory);
+    Type getCategoryByIndex(int idCategory);
+    void updateCategory(int idCategory, String name);
+    void addCategory(String name);
+    void deleteCategory(int idCategory);
 }

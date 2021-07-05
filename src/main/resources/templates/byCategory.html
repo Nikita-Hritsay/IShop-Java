@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<header th:insert="blocks/header :: header"></header>
+
 <div class="news-catalog catalog_animation">
     <div class="news-catalog_name">
         <h3 class="news-catalog_name_text"></h3>
@@ -15,7 +17,7 @@
     <div class="news_list">
         <tr th:each="product : ${products}">
             <div class="news-catalog-item">
-                <form action="/byCategory" method="post">
+                <form action="/byCategory/{idCategory}" method="post">
                     <div class="product">
                         <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
                         <div class="product-info">

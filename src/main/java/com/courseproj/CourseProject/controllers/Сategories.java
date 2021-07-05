@@ -1,7 +1,6 @@
 package com.courseproj.CourseProject.controllers;
 
 
-import com.courseproj.CourseProject.Entity.Basket;
 import com.courseproj.CourseProject.Entity.Product;
 import com.courseproj.CourseProject.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,6 @@ public class Сategories {
     private final ReceiptDAOImpl receiptDAO;
     private final ProcessorDAOImpl processorDAO;
     private final BasketDAOImpl basketDAO;
-
-    private Basket basket = new Basket();
 
 
     @Autowired
@@ -51,6 +48,8 @@ public class Сategories {
         return "redirect:/";
     }
 
+
+    // Поиск по категории через конкретную ссылку
     @GetMapping("/motherboard")
     public String motherboard_all(Model model){
         model.addAttribute("categories", allProductsDAO.getAllCategories());
@@ -95,20 +94,52 @@ public class Сategories {
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
         return "redirect:/";
     }
-
-    @GetMapping("/category/{name}")
-    public String getByCategory(Model model, @RequestParam String name){
+    
+    // Поиск через категорию
+    @GetMapping("/byCategory/{idCategory}")
+    public String byCategory(Model model, @PathVariable int idCategory){
         model.addAttribute("categories", allProductsDAO.getAllCategories());
-        model.addAttribute("products", allProductsDAO.getByCategory(name));
+        model.addAttribute("products", allProductsDAO.getByCategory(idCategory));
         return "byCategory";
     }
 
-    @PostMapping("/category/{name}")
-    public String getByCategoryPOST(Model model, @RequestParam int idProduct){
+    @PostMapping("byCategory/{idCategory}")
+    public String byCategoryPost(Model model, @RequestParam int idProduct){
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
         return "redirect:/";
     }
 
+    @GetMapping("/category")
+    public String category(Model model){
+
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        return "categories";
+    }
+
+    @GetMapping("/category/{idCategory}")
+    public String categoryid(Model model, @PathVariable int idCategory){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        model.addAttribute("categories", allProductsDAO.getCategoryByIndex(idCategory));
+        return "categoryid";
+    }
+
+    @PostMapping("/category/{idCategory}")
+    public String getByCategoryPOST(Model model, @RequestParam int idCategory, @RequestParam String name){
+        allProductsDAO.updateCategory(idCategory, name);
+        return "redirect:/";
+    }
+
+    @GetMapping("/addCategory")
+    public String addCategory(Model model){
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        return "addCategory";
+    }
+
+    @PostMapping("/addCategory")
+    public String addCategoryPost(Model model, String name){
+        allProductsDAO.addCategory(name);
+        return "redirect:/";
+    }
 }

@@ -75,12 +75,32 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public List<Product> getByCategory(String name) {
-        return jdbcTemplate.query("select select product.idProduct,  product.name, product.price, type.name as type, product.productDescription, img.path_to_file" +
+    public void addCategory(String name) {
+        jdbcTemplate.update("insert into type(name) values('" + name + "')");
+    }
+
+    @Override
+    public void deleteCategory(int idCategory) {
+        jdbcTemplate.update("delete from type where type.idType = ?", idCategory);
+    }
+
+    @Override
+    public void updateCategory(int idCategory, String name) {
+        jdbcTemplate.update("update type set name = '" + name + "' where idType = " + idCategory);
+    }
+
+    @Override
+    public Type getCategoryByIndex(int idCategory) {
+        return jdbcTemplate.query("select idType, name from type where idType = " + idCategory, new TypeMapper()).stream().findAny().orElse(null);
+    }
+
+    @Override
+    public List<Product> getByCategory(int idCategory) {
+        return jdbcTemplate.query("select product.idProduct,  product.name, product.price, type.name as type, product.productDescription, img.path_to_file" +
                 " from product " +
                 " JOIN img on img.idImg = product.Img_idImg " +
                 " join type on product.idType = type.idType" +
-                " where type.name = " + name, new ProductMapper());
+                " where type.idType = " + idCategory, new ProductMapper());
     }
 
     @Override

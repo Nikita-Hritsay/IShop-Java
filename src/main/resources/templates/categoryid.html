@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/main.js" defer></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<header th:insert="blocks/header :: header"></header>
+
+
+
+<div class="Product_page_outer">
+    <form action="/category/{idCategory}" method="post">
+        <tr th:each="category : ${categories}">
+            <div class="products">
+                <div class="product_info">
+                    <label>Name: <td th:text="${category.getName()}"></td><br><input type="text" name="name" th:value="${category.getName()}" class="form-control"></label><br>
+                    <label>Id: <td th:text="${category.getId()}"></td><br></label><br>
+                    <span sec:authorize="isAuthenticated()">
+                        <input th:name="idCategory" th:value="${category.getId()}" type="hidden">
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                        <button type="submit" class="btn btn-success">Изменить</button>
+                    </span>
+                </div>
+            </div>
+        </tr>
+    </form>
+</div>
+
+
+</body>
+</html>
+

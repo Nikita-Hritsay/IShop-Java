@@ -1,7 +1,6 @@
 package com.courseproj.CourseProject.controllers;
 
 
-import com.courseproj.CourseProject.Entity.Basket;
 import com.courseproj.CourseProject.Entity.Product;
 import com.courseproj.CourseProject.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,6 @@ public class ProductController {
     private final ReceiptDAOImpl receiptDAO;
     private final ProcessorDAOImpl processorDAO;
     private final BasketDAOImpl basketDAO;
-    private Basket basket = new Basket();
 
 
     @Autowired
@@ -47,8 +45,6 @@ public class ProductController {
     @PostMapping("/product/{idProduct}")
     public String get_product_by_idPost(Model model, @RequestParam String amount, @RequestParam int idProduct){
         Product product = allProductsDAO.index(idProduct);
-        basket.add_to_basket(product, Integer.parseInt(amount));
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, Integer.parseInt(amount));
 

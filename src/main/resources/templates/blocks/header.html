@@ -23,6 +23,10 @@
                             <a class="header-page_li" href="/editProduct">Редактировать товар</a>
                         </span>
 
+                        <span sec:authorize="hasRole('ADMIN')">
+                            <a class="header-page_li" href="/category">Редактировать категории</a>
+                        </span>
+
                         <span sec:authorize="isAuthenticated()">
                             <a class="header-page_li" href="/profilePage">Аккаунт</a>
                         </span>
@@ -44,7 +48,9 @@
         <div class="main_header_lest_side">
             <div class="main_header_item headerButton">
                 <tr th:each="category : ${categories}">
-                    <a th:href="@{/} + ${category.getName()}" class="header-item"><td th:text="${category.getName()}"></td></a>
+                    <input th:name="idCategory" th:value="${category.getId()}" type="hidden">
+                    <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+                    <a th:href="@{/byCategory/} + ${category.getId()}" class="header-item"><td th:text="${category.getName()}"></td></a>
                 </tr>
             </div>
         </div>

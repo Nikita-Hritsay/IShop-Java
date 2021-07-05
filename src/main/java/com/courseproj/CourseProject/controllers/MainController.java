@@ -24,7 +24,6 @@ public class MainController {
     private final ReceiptDAOImpl receiptDAO;
     private final ProcessorDAOImpl processorDAO;
     private final BasketDAOImpl basketDAO;
-    private Basket basket = new Basket();
     private BasketU basketU = new BasketU();
 
 
@@ -103,4 +102,7 @@ public class MainController {
         receiptDAO.changeStatus(status, idReceipt);
         return "redirect:/";
     }
+
+
+
 }

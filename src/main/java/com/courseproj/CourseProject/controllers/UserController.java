@@ -1,6 +1,5 @@
 package com.courseproj.CourseProject.controllers;
 
-import com.courseproj.CourseProject.Entity.Basket;
 import com.courseproj.CourseProject.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,7 +18,7 @@ public class UserController {
     private final UserDAOImpl userDAO;
     private final ReceiptDAOImpl receiptDAO;
     private final ProcessorDAOImpl processorDAO;
-    private Basket basket = new Basket();
+
 
 
     @Autowired
