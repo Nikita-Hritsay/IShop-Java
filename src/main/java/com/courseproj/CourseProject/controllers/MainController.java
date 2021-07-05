@@ -2,16 +2,16 @@ package com.courseproj.CourseProject.controllers;
 
 import com.courseproj.CourseProject.Entity.*;
 import com.courseproj.CourseProject.jdbc.*;
-import org.apache.juli.logging.Log;
+import com.courseproj.CourseProject.security.MailSend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,6 +26,8 @@ public class MainController {
     private final BasketDAOImpl basketDAO;
     private BasketU basketU = new BasketU();
 
+    @Autowired
+    private MailSender mailSender;
 
     @Autowired
     public MainController(MotherboardDAOImpl motherboardDAO, AllProductsDAOImpl allProductsDAO, GraphicsCardDAOImpl graphicsCardDAO,UserDAOImpl userDAO, ReceiptDAOImpl receiptDAO, ProcessorDAOImpl processorDAO, BasketDAOImpl basketDAO) {
@@ -57,6 +59,16 @@ public class MainController {
         }
         Delivery delivery = new Delivery(name, delivery_info);
         receiptDAO.saveDelivery(delivery, authentication.getName());
+
+        SimpleMailMessage msg = new SimpleMailMessage();
+
+        msg.setTo("hritsaynikita@gmail.com");
+        msg.setFrom("hritsaynikita@gmail.com");
+        msg.setSubject("New Order");
+        msg.setText("NEW ORDER");
+
+        mailSender.send(msg);
+
         basketDAO.deleteBasket(authentication.getName());
         return "redirect:/";
     }
