@@ -30,3 +30,19 @@ Project includes:
   - Upon successful submit, the administrator receives a notification by email (I used org.springframework.mail.javamail.JavaMailSenderImpl; ). The administrator must see all orders in the admin panel.
   
  Also I added different dunctionality, e.g. updating account information, deleting basket or updating order status for the administrator.
+
+
+Information fro check:
+
+User
+
+login: ulogin4
+
+Password: upass4
+
+
+Admin:
+
+Login: alogin
+
+Password: alogin
