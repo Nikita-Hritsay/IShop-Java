@@ -4,14 +4,19 @@ Course project
 This project is written using these tecnologies:
 Database: 
   Mysql;
+  
 JDBC:
   JDBCTemplate;
+
 Main language:
   Java;
+
 Project-builder:
   Maven;
+
 Security:
   Spring-security;
+
 Framework:
   Spring;
 
