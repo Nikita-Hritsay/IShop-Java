@@ -3,17 +3,17 @@ Course project
 
 This project is written using these tecnologies:
 Database: 
-  Mysql
+  Mysql;
 JDBC:
-  JDBCTemplate
+  JDBCTemplate;
 Main language:
-  Java
+  Java;
 Project-builder:
-  Maven
+  Maven;
 Security:
-  Spring-security
+  Spring-security;
 Framework:
-  Spring
+  Spring;
 
 Project includes:
   - Product categories. The administrator can add, remove and change categories
