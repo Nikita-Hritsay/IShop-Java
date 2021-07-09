@@ -1,4 +1,4 @@
-package com.courseproj.CourseProject.security;
+package com.courseproj.CourseProject.config;
 
 import org.springframework.boot.autoconfigure.web.servlet.ConditionalOnMissingFilterBean;
 import org.springframework.context.annotation.Bean;

@@ -2,7 +2,6 @@ package com.courseproj.CourseProject.controllers;
 
 import com.courseproj.CourseProject.Entity.*;
 import com.courseproj.CourseProject.jdbc.*;
-import com.courseproj.CourseProject.security.MailSend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;

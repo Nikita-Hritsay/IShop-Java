@@ -1,4 +1,4 @@
-package com.courseproj.CourseProject.security;
+package com.courseproj.CourseProject.config;
 
 import javax.sql.DataSource;
 
