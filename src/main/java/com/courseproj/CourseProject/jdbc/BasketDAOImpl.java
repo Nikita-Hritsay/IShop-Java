@@ -4,8 +4,6 @@ import com.courseproj.CourseProject.Entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -58,8 +56,8 @@ public class BasketDAOImpl implements  BasketDAO{
 
         List<Product> list = jdbcTemplate.query("select * from basket_product, product, type, img where product_idProduct = ?", new ProductMapper(), product.getIdProduct());
         if(list.isEmpty()) {
-            jdbcTemplate.update("insert into courseproject.basket_product(amount, price, basket_idbasket, basket_user_iduser, product_idProduct) \n" +
-                    "values(" + amount + ", " + product.getPrice() + " , (select idbasket from courseproject.basket where user_iduser = "
+            jdbcTemplate.update("insert into basket_product(amount, price, basket_idbasket, basket_user_iduser, product_idProduct) \n" +
+                    "values(" + amount + ", " + product.getPrice() + " , (select idbasket from basket where user_iduser = "
                     + new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + "), " +
                     new UserDAOImpl(jdbcTemplate).getCurrentUser(login).getIdUser() + ", " +
                     product.getIdProduct() + ");");

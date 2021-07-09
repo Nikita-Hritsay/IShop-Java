@@ -45,7 +45,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
 
@@ -62,7 +62,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @GetMapping("/graphicsCard")
@@ -77,7 +77,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @GetMapping("/processor")
@@ -92,7 +92,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     // Поиск через категорию
@@ -108,7 +108,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @GetMapping("/category")

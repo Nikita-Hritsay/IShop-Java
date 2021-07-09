@@ -53,24 +53,24 @@ public class AllProductsDAOImpl implements AllProductsDAO{
 
     @Override
     public void deleteProduct(int idProduct) {
-        jdbcTemplate.update("delete from courseproject.reciept_has_product where idProduct = ?", idProduct);
-        jdbcTemplate.update("delete from courseproject.product where idProduct = ?", idProduct);
+        jdbcTemplate.update("delete from reciept_has_product where idProduct = ?", idProduct);
+        jdbcTemplate.update("delete from product where idProduct = ?", idProduct);
     }
 
     @Override
     public void updateProduct(String name, int price, int idType, int idProduct, String Description) {
         Product product = index(idProduct);
         if(price != product.getPrice()){
-            jdbcTemplate.update("update courseproject.product set price = "+ price +" where idProduct = ?", idProduct);
+            jdbcTemplate.update("update product set price = "+ price +" where idProduct = ?", idProduct);
         }
         if(name != product.getName()){
-            jdbcTemplate.update("update courseproject.product set name = '"+ name +"' where idProduct = ?", idProduct);
+            jdbcTemplate.update("update product set name = '"+ name +"' where idProduct = ?", idProduct);
         }
         if(idType != product.getIdType()){
-            jdbcTemplate.update("update courseproject.product set idType = "+ idType +  " where idProduct = ?", idProduct);
+            jdbcTemplate.update("update product set idType = "+ idType +  " where idProduct = ?", idProduct);
         }
         if(Description != product.getDescription()){
-            jdbcTemplate.update("update courseproject.product set productDescription = '"+ Description +  "' where idProduct = ?", idProduct);
+            jdbcTemplate.update("update product set productDescription = '"+ Description +  "' where idProduct = ?", idProduct);
         }
     }
 

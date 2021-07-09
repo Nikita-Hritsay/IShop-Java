@@ -48,7 +48,7 @@ public class ProductController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, Integer.parseInt(amount));
 
-        return "redirect:/";
+        return "redirect:/basket";
     }
 
     @GetMapping("/addProduct")

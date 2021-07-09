@@ -16,7 +16,7 @@
 
 <div class="Product_page_outer">
     <h1 th:text="${title}"/>
-    <form action="/idCategory/{idProduct}" method="post">
+    <form action="/updateProduct/{idProduct}" method="post">
         <tr th:each="product : ${products}">
 
             <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
