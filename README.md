@@ -2,6 +2,7 @@
 Course project
 
 This project is written using these tecnologies:
+
 Database: 
   Mysql;
   
