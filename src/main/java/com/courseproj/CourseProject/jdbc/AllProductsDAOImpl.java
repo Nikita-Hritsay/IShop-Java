@@ -47,8 +47,9 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public void addProduct(String name, int price, int Img_idImg, int idType, String Description) {
-        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_idImg, idType, Description);
+    public void addProduct(String name, int price, String path, int idType, String Description, int Img_id) {
+        jdbcTemplate.update("insert into img(description, path_to_file) values(?, ?)", "product_img", path);
+        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_id, idType, Description);
     }
 
     @Override
@@ -82,6 +83,12 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     @Override
     public void deleteCategory(int idCategory) {
         jdbcTemplate.update("delete from type where type.idType = ?", idCategory);
+    }
+
+    @Override
+    public Img getLastImgId() {
+        return jdbcTemplate.query("select max(idImg) as idImg from img", new Object[]{}, new ImgMapper())
+                .stream().findAny().orElse(null);
     }
 
     @Override

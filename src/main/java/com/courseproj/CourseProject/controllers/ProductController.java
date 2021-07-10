@@ -3,6 +3,7 @@ package com.courseproj.CourseProject.controllers;
 
 import com.courseproj.CourseProject.Entity.Product;
 import com.courseproj.CourseProject.jdbc.*;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 @Controller
 public class ProductController {
@@ -58,8 +67,15 @@ public class ProductController {
     }
 
     @PostMapping("/addProduct")
-    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int Img_idImg, @RequestParam int idType, @RequestParam String description){
-        allProductsDAO.addProduct(name, price, Img_idImg, idType, description);
+    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int idType, @RequestParam String description, @RequestParam File photo) {
+        File src = new File("C:\\Users\\Nikita\\Desktop\\"+ photo.toPath().toString());
+        File target = new File("D:\\Projects\\IShop-Java\\src\\main\\resources\\static\\images\\recomandation\\" + (int)(allProductsDAO.getLastImgId().getIdImg()) + ".jpg");
+        try {
+            Files.copy(src.toPath(), target.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        allProductsDAO.addProduct(name, price, "/images/recomandation/" + allProductsDAO.getLastImgId().getIdImg() + ".jpg", idType, description, allProductsDAO.getLastImgId().getIdImg());
         return "redirect:/";
     }
 

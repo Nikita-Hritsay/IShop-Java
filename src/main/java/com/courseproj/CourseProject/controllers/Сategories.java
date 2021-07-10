@@ -1,6 +1,7 @@
 package com.courseproj.CourseProject.controllers;
 
 
+import com.courseproj.CourseProject.Entity.Img;
 import com.courseproj.CourseProject.Entity.Product;
 import com.courseproj.CourseProject.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
