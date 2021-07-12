@@ -35,8 +35,15 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="number" class="form-control" id="idType" name="idType" placeholder="id Type">
                     <i class="fa fa-user"></i>
+                    <p><input list="cat_type" type="text" name="idType"></p>
+                    <datalist id="cat_type">
+                        <tr th:each="type : ${types}">
+                            <option><td th:text="${type.getName()}"></td></option>
+                        </tr>
+                    </datalist>
+
+
                 </div>
 
 

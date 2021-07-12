@@ -47,9 +47,9 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public void addProduct(String name, int price, String path, int idType, String Description, int Img_id) {
+    public void addProduct(String name, int price, String path, String idType, String Description, int Img_id) {
         jdbcTemplate.update("insert into img(description, path_to_file) values(?, ?)", "product_img", path);
-        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_id, idType, Description);
+        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_id, getCategoryByName(idType).getId(), Description);
     }
 
     @Override
@@ -113,5 +113,10 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     @Override
     public List<Type> getAllCategories() {
         return jdbcTemplate.query("select idType, name from type", new TypeMapper());
+    }
+
+    @Override
+    public Type getCategoryByName(String name){
+        return jdbcTemplate.query("select idType, name from type where name = '" + name + "'", new TypeMapper() ).stream().findAny().orElse(null);
     }
 }

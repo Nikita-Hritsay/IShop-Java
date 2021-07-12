@@ -63,11 +63,12 @@ public class ProductController {
     @GetMapping("/addProduct")
     public String addProduct(Model model){
         model.addAttribute("categories", allProductsDAO.getAllCategories());
+        model.addAttribute("types", allProductsDAO.getAllCategories());
         return "addProduct";
     }
 
     @PostMapping("/addProduct")
-    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam int idType, @RequestParam String description, @RequestParam File photo) {
+    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam String idType, @RequestParam String description, @RequestParam File photo) {
         File src = new File("C:\\Users\\Nikita\\Desktop\\"+ photo.toPath().toString());
         File target = new File("D:\\Projects\\IShop-Java\\src\\main\\resources\\static\\images\\recomandation\\" + (int)(allProductsDAO.getLastImgId().getIdImg()) + ".jpg");
         try {
