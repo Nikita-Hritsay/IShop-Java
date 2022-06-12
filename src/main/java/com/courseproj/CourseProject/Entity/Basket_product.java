@@ -45,5 +45,6 @@ public class Basket_product extends Product{
         this.idProduct = idProduct;
         this.amount = amount;
         this.price = price;
+
     }
 }
