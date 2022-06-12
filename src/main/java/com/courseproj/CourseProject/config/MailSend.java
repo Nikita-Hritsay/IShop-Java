@@ -20,7 +20,7 @@ public class MailSend {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
         mailSender.setUsername("hritsaynikita@gmail.com");
-        mailSender.setPassword("password");
+        mailSender.setPassword("test");
 
 
         Properties properties = new Properties();
