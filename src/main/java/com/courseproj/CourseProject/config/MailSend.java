@@ -22,6 +22,7 @@ public class MailSend {
         mailSender.setUsername("hritsaynikita@gmail.com");
         mailSender.setPassword("password");
 
+
         Properties properties = new Properties();
         properties.put("mail.transport.protocol", "smtp");
         properties.put("mail.smtp.auth", "true");
