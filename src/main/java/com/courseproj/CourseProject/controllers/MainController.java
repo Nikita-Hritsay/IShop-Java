@@ -59,14 +59,6 @@ public class MainController {
         Delivery delivery = new Delivery(name, delivery_info);
         receiptDAO.saveDelivery(delivery, authentication.getName());
 
-        SimpleMailMessage msg = new SimpleMailMessage();
-
-        msg.setTo("hritsaynikita@gmail.com");
-        msg.setFrom("hritsaynikita@gmail.com");
-        msg.setSubject("New Order");
-        msg.setText("NEW ORDER");
-
-        mailSender.send(msg);
 
         basketDAO.deleteBasket(authentication.getName());
         return "redirect:/";
