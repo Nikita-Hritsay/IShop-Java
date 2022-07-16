@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="/js/main.js" defer></script>
+</head>
+<body>
+
+
+<header th:insert="blocks/header :: header"></header>
+
+<div class="news-catalog catalog_animation">
+    <div class="news-catalog_name">
+        <h3 class="news-catalog_name_text">Все заказы</h3>
+    </div>
+    <div class="news_list">
+        <tr th:each="order : ${orders}">
+            <div class="news-catalog-item">
+
+                <div class="product">
+                    <div class="product-info">
+                        <input th:name="idReceipt" th:value="${order.getIdReceipt()}" type="hidden">
+                        <p class="product-info info-text-first">Id заказа <td th:text="${order.getIdReceipt()}"></td></p>
+                        <p class="product-info info-text-first"><td th:text="${order.getStatusName()}"></td></p>
+                        <p class="product-info info-text-first">Сумма заказа <td th:text="${order.getPrice()}"></td></p>
+                        <a th:href="@{/order/} + ${order.getIdReceipt()}" >Осмотреть заказ</a>
+                    </div>
+                </div>
+
+            </div>
+        </tr>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>

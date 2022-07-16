@@ -45,7 +45,7 @@ public class ReceiptDAOImpl implements ReceiptDAO{
 
     @Override
     public List<Order> index(String login) {
-        return jdbcTemplate.query("select idReceipt, receipt.price, status.status as receipt_status, user_iduser"+
+        return jdbcTemplate.query("select idReceipt, receipt.price, status.status as receipt_status, status.idStatus, user_iduser"+
                 " from receipt " +
                 " join status on receipt.idStatus = status.idStatus "+
                 " where user_iduser = (select idUser from user where login = ?)" +
