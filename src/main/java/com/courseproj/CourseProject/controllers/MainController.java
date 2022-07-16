@@ -59,7 +59,6 @@ public class MainController {
         Delivery delivery = new Delivery(name, delivery_info);
         receiptDAO.saveDelivery(delivery, authentication.getName());
 
-
         basketDAO.deleteBasket(authentication.getName());
         return "redirect:/";
     }
