@@ -612,7 +612,7 @@ body {
     font-size: 16px;
     line-height: 1.375;
     color: #1f1f1f;
-    max-width: 1980px
+    max-width: 1980px;
     height: 100%;
     background: #f3f3f3;
 }
@@ -665,7 +665,7 @@ body {
     justify-content: space-around;
     flex-wrap: wrap;
     padding-top: 40px;
-    min-height: 322px;
+    min-height: 120px;
     margin-left: 100px;
     margin-right: 100px
 }

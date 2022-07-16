@@ -23,7 +23,6 @@
                     <div class="product-info">
                         <p class="product-info info-text-first">Name: <td th:text="${product_basket.getName()}"></td></p>
                         <p class="product-info info-text-second">Price: <td th:text="${product_basket.getPrice()}"></td></p>
-                        <p class="product-info info-text-second">ID: <td th:text="${product_basket.getIdProduct()}"></td></p>
                     </div>
                 </div>
 
@@ -51,7 +50,7 @@
             <label>Адрес доставки: <td th:text="${delivery_info.getName()}"></td></label>
         </tr>
     </div>
-    <div class="news_list">
+    <div class="news_list" sec:authorize="hasRole('ADMIN')">
         <form action="/order/{idReceipt}" method="post">
             <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
             <input th:value="${idReceipt}" th:name="idReceipt" type="hidden">

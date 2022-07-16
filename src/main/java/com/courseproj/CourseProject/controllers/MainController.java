@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -103,6 +104,15 @@ public class MainController {
     public String orderIdPost(Model model, @RequestParam String status, @RequestParam int idReceipt){
         receiptDAO.changeStatus(status, idReceipt);
         return "redirect:/";
+    }
+
+    @GetMapping("/userOrders")
+    public String userOrders(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("orders", receiptDAO.index(authentication.getName()));
+        model.addAttribute("categories", allProductsDAO.getAllCategories());
+        System.out.println(receiptDAO.index(authentication.getName()));
+        return "userOrders";
     }
 
 
