@@ -97,6 +97,7 @@ public class MainController {
         model.addAttribute("product_baskets", product_baskets);
         model.addAttribute("userInfo", user);
         model.addAttribute("delivery_info", delivery);
+        model.addAttribute("order", receiptDAO.getById(idReceipt));
         return "orderid";
     }
 

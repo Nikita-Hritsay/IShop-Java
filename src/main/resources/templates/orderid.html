@@ -66,6 +66,10 @@
         </form>
     </div>
 
+    <div class="news_list" sec:authorize="hasRole('USER')">
+        <p class="product-info info-text-first">Статус Заказа<td th:text="${order.getStatusName()}"></td></p>
+    </div>
+
 
 
 
