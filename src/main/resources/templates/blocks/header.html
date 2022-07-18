@@ -8,11 +8,11 @@
                 <nav class="header-page_nav">
                     <ul class="header-page_ul">
                         <span sec:authorize="hasRole('USER')">
-                            <a class="header-page_li" href="/basket">корзина </a>
+                            <a class="header-page_li" href="/basket">Корзина</a>
                         </span>
 
                         <span sec:authorize="hasRole('ADMIN')">
-                            <a class="header-page_li" href="/orders">заказы </a>
+                            <a class="header-page_li" href="/orders">Заказы</a>
                         </span>
 
                         <span sec:authorize="hasRole('ADMIN')">
@@ -31,8 +31,12 @@
                             <a class="header-page_li" href="/category">Редактировать категории</a>
                         </span>
 
-                        <span sec:authorize="isAuthenticated()">
+                        <span sec:authorize="hasRole('USER')">
                             <a class="header-page_li" href="/userOrders">Заказы</a>
+                        </span>
+
+                        <span sec:authorize="hasRole('USER')">
+                            <a class="header-page_li" th:href="@{/constructor/0}">Конструктор</a>
                         </span>
 
                         <span sec:authorize="isAuthenticated()">

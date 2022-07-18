@@ -15,22 +15,27 @@
     <div class="news-catalog_name">
         <h3 class="news-catalog_name_text">Все заказы</h3>
     </div>
-    <div class="news_list">
-        <tr th:each="order : ${orders}">
-            <div class="news-catalog-item">
+    <div th:if="${orders != null}">
+        <div class="news_list">
+            <tr th:each="order : ${orders}">
+                <div class="news-catalog-item">
 
-                <div class="product">
-                    <div class="product-info">
-                        <input th:name="idReceipt" th:value="${order.getIdReceipt()}" type="hidden">
-                        <p class="product-info info-text-first">Id заказа <td th:text="${order.getIdReceipt()}"></td></p>
-                        <p class="product-info info-text-first"><td th:text="${order.getStatusName()}"></td></p>
-                        <p class="product-info info-text-first">Сумма заказа <td th:text="${order.getPrice()}"></td></p>
-                        <a th:href="@{/order/} + ${order.getIdReceipt()}" >Осмотреть заказ</a>
+                    <div class="product">
+                        <div class="product-info">
+                            <input th:name="idReceipt" th:value="${order.getIdReceipt()}" type="hidden">
+                            <p class="product-info info-text-first">Id заказа <td th:text="${order.getIdReceipt()}"></td></p>
+                            <p class="product-info info-text-first"><td th:text="${order.getStatusName()}"></td></p>
+                            <p class="product-info info-text-first">Сумма заказа <td th:text="${order.getPrice()}"></td></p>
+                            <a th:href="@{/order/} + ${order.getIdReceipt()}" >Осмотреть заказ</a>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-        </tr>
+                </div>
+            </tr>
+        </div>
+    </div>
+    <div th:if="${orders == null}">
+        <p>There is no orders in the list</p>
     </div>
 </div>
 
