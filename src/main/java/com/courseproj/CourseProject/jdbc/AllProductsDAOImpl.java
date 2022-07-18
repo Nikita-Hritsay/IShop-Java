@@ -17,14 +17,14 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
+    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
             " JOIN img on img.idImg = product.Img_idImg " +
             " where idProduct = ? " +
             " ORDER BY product.idProduct;";
-    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.name as type, product.productDescription," +
+    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
@@ -103,7 +103,7 @@ public class AllProductsDAOImpl implements AllProductsDAO{
 
     @Override
     public List<Product> getByCategory(int idCategory) {
-        return jdbcTemplate.query("select product.idProduct,  product.name, product.price, type.name as type, product.productDescription, img.path_to_file" +
+        return jdbcTemplate.query("select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription, img.path_to_file" +
                 " from product " +
                 " JOIN img on img.idImg = product.Img_idImg " +
                 " join type on product.idType = type.idType" +
