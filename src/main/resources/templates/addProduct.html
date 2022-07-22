@@ -36,6 +36,16 @@
 
                 <div class="form-group">
                     <i class="fa fa-user"></i>
+                    <p><input list="chip" type="text" name="chipset"></p>
+                    <datalist id="chip">
+                        <tr th:each="chip : ${chipsets}">
+                            <option><td th:text="${chip.getName()}"></td></option>
+                        </tr>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <i class="fa fa-user"></i>
                     <p><input list="cat_type" type="text" name="idType"></p>
                     <datalist id="cat_type">
                         <tr th:each="type : ${types}">

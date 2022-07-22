@@ -54,7 +54,7 @@ public class BasketDAOImpl implements  BasketDAO{
     @Override
     public void addToBasket_has_product(String login, Product product, int amount) {
 
-        List<Product> list = jdbcTemplate.query("select * from basket_product, product, type, img where product_idProduct = ?", new ProductMapper(), product.getIdProduct());
+        List<Product> list = jdbcTemplate.query("select *, chipset.idChipset as chipset from basket_product, product, type, img, chipset  where product_idProduct = ?", new ProductMapper(), product.getIdProduct());
         if(list.isEmpty()) {
             jdbcTemplate.update("insert into basket_product(amount, price, basket_idbasket, basket_user_iduser, product_idProduct) \n" +
                     "values(" + amount + ", " + product.getPrice() + " , (select idbasket from basket where user_iduser = "

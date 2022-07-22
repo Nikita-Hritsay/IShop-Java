@@ -57,18 +57,20 @@ public class ProductController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, Integer.parseInt(amount));
 
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
     @GetMapping("/addProduct")
     public String addProduct(Model model){
         model.addAttribute("categories", allProductsDAO.getAllCategories());
         model.addAttribute("types", allProductsDAO.getAllCategories());
+        model.addAttribute("chipsets", allProductsDAO.getAllChipsets());
+        System.out.println(allProductsDAO.getAllChipsets());
         return "addProduct";
     }
 
     @PostMapping("/addProduct")
-    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam String idType, @RequestParam String description, @RequestParam File photo) {
+    public String addProductPost(Model model, @RequestParam String name, @RequestParam int price, @RequestParam String idType, @RequestParam String chipset, @RequestParam String description, @RequestParam File photo) {
         File src = new File("C:\\Users\\Nikita\\Desktop\\"+ photo.toPath().toString());
         File target = new File("D:\\Projects\\IShop-Java\\src\\main\\resources\\static\\images\\recomandation\\" + (int)(allProductsDAO.getLastImgId().getIdImg()) + ".jpg");
         try {
@@ -76,7 +78,8 @@ public class ProductController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        allProductsDAO.addProduct(name, price, "/images/recomandation/" + allProductsDAO.getLastImgId().getIdImg() + ".jpg", idType, description, allProductsDAO.getLastImgId().getIdImg());
+        System.out.println(chipset);
+        allProductsDAO.addProduct(name, price, "/images/recomandation/" + allProductsDAO.getLastImgId().getIdImg() + ".jpg", idType, description, allProductsDAO.getLastImgId().getIdImg(), allProductsDAO.getChipByName(chipset));
         return "redirect:/";
     }
 

@@ -22,8 +22,10 @@
                         <img th:src="${product.getPath_to_file()}" th:alt="${product.getDescription()}" class="product-img">
                         <div class="product-info">
                             <input th:name="idProductCategory" th:value="${product.getIdType()}" type="hidden">
+                            <input th:name="fromConstructor" th:value="true" th:type="hidden">
                             <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
                             <p class="product-info info-text-second"><td th:text="${product.getPrice()}"></td></p>
+                            <p class="product-info info-text-second"><td th:text="${product.getChipSet()}"></td></p>
                             <a href="/constructor/{idCategory}" class="header-item">Перейти</a>
                             <span sec:authorize="isAuthenticated()">
                                 <button type="submit" class="btn btn-success">Выбрать</button>

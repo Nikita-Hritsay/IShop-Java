@@ -18,6 +18,7 @@ public class ProductMapper implements RowMapper<Product> {
         //product.setType(resultSet.getString("type"));
         product.setDescription(resultSet.getString("productDescription"));
         product.setPath_to_file(resultSet.getString("path_to_file"));
+        product.setChipSet(resultSet.getString("chipset"));
         return product;
     }
 }

@@ -3,14 +3,13 @@ package com.courseproj.CourseProject.controllers;
 import com.courseproj.CourseProject.Entity.*;
 import com.courseproj.CourseProject.jdbc.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -40,19 +39,20 @@ public class MainController {
         this.basketDAO = basketDAO;
     }
 
-    @GetMapping("/basket")
-    public String basketPage(Model model){
+    @GetMapping("/basket/{fromConstructor}")
+    public String basketPage(Model model, @PathVariable boolean fromConstructor){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("fromConstructor", fromConstructor);
         model.addAttribute("baskets", basketDAO.getBasket(authentication.getName()));
         model.addAttribute("FullPrice", basketDAO.getFullPrice(authentication.getName()));
         model.addAttribute("categories", allProductsDAO.getAllCategories());
         return "basket";
     }
 
-    @PostMapping("/basket")
-    public String BasketPagePost(Model model, @RequestParam String name, @RequestParam String delivery_info) {
+    @PostMapping("/basket/{fromConstructor}")
+    public String BasketPagePost(Model model, @RequestParam String name, @RequestParam String delivery_info, @RequestParam @Nullable String assamble) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        receiptDAO.save_receipt(new Order(basketDAO.getFullPrice(authentication.getName()).getPrice()), authentication.getName());
+        receiptDAO.save_receipt(new Order(basketDAO.getFullPrice(authentication.getName()).getPrice()), authentication.getName(), assamble == null ? false: assamble.isEmpty());
         List<Basket_product> product_baskets = basketDAO.getBasket_product(authentication.getName());
         for(int i = 0; i < product_baskets.size(); i++){
             receiptDAO.saveReceiptProduct(authentication.getName(), product_baskets.get(i));

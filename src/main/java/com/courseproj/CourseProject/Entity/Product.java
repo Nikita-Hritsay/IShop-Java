@@ -8,6 +8,7 @@ public class Product {
     private int idType;
     private int amount;
     private String type;
+    private String chipSet;
     private String description;
     private String path_to_file;
 
@@ -34,7 +35,7 @@ public class Product {
         this.amount = amount;
     }
 
-    public Product(int idProduct, String name, int price, int idImg, int idType, int amount, String type, String description, String path_to_file) {
+    public Product(int idProduct, String name, int price, int idImg, int idType, int amount, String type, String chipSet, String description, String path_to_file) {
         this.idProduct = idProduct;
         this.name = name;
         this.price = price;
@@ -42,6 +43,7 @@ public class Product {
         this.idType = idType;
         this.amount = amount;
         this.type = type;
+        this.chipSet = chipSet;
         this.description = description;
         this.path_to_file = path_to_file;
     }
@@ -137,5 +139,13 @@ public class Product {
 
     public void setIdType(int idType) {
         this.idType = idType;
+    }
+
+    public String getChipSet() {
+        return chipSet;
+    }
+
+    public void setChipSet(String chipSet) {
+        this.chipSet = chipSet;
     }
 }

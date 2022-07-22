@@ -22,6 +22,7 @@
                     <div class="product_info">
                         <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
                         <p class="product-info info-text-first"><td th:text="${product.getName()}"></td></p>
+                        <p class="product-info info-text-first"><td th:text="${product.getChipSet()}"></td></p>
                         <p class="product-info info-text-second">Цена: <td th:text="${product.getPrice()}"></td></p>
                         <p class="product-info info-text-second">Описание: <td th:text="${product.getDescription()}"></td></p>
                     </div>

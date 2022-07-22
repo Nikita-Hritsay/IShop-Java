@@ -15,11 +15,14 @@
     <div class="news-catalog_name">
         <h3 class="news-catalog_name_text">Корзина</h3>
     </div>
-    <form action="/basket" method="post">
+    <form action="/basket/{fromConstructor}" method="post">
         <div class="commit_basket">
             <span sec:authorize="isAuthenticated()">
                 <button type="submit" class="btn btn-success">Оформить заказ</button>
+                <div th:if="${fromConstructor}">
 
+                     <p class="product-info info-text-first">Сборка:   <input th:type="checkbox" th:name="assamble"></td></p>
+                </div>
                 <p class="product-info info-text-first">Общая цена заказа: <td th:text="${FullPrice.getPrice()}"></td></p>
 
                 <p><input list="delivery" name="name"></p>

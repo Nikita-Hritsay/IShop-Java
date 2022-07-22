@@ -31,14 +31,14 @@ public class Constructor {
         this.basketDAO = basketDAO;
     }
 
-    @GetMapping("/constructor/{idCategory}")
-    public String constructor(Model model, @PathVariable Integer idCategory) {
+    @GetMapping("/constructor/{idCategory}/{chipset}")
+    public String constructor(Model model, @PathVariable Integer idCategory, @PathVariable Integer chipset) {
         if(idCategory == 0){
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             basketDAO.deleteBasket(authentication.getName());
         }
         model.addAttribute("categories", allProductsDAO.getAllCategories());
-        model.addAttribute("products", allProductsDAO.getByCategory(categories.get(idCategory).getId()));
+        model.addAttribute("products", allProductsDAO.getByCategory(categories.get(idCategory).getId(), chipset == 0 ? null : allProductsDAO.getChipById(chipset).getName()));
         return "constructor";
     }
 
@@ -49,11 +49,11 @@ public class Constructor {
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
         int index = categories.indexOf(categories.stream().filter(el->el.getId() == product.getIdType()).findFirst().orElse(null));
         if(++index == categories.size()){
-            return "redirect:/basket";
+            return "redirect:/basket/1";
         }
         model.addAttribute("categories", allProductsDAO.getAllCategories());
-        model.addAttribute("products", allProductsDAO.getByCategory(categories.get(index).getId()));
-        return "redirect:/constructor/" + index;
+        model.addAttribute("products", allProductsDAO.getByCategory(categories.get(index).getId(), product.getChipSet()));
+        return "redirect:/constructor/" + index + "/"+ allProductsDAO.getChipByName(product.getChipSet()).getId();
     }
 
 }

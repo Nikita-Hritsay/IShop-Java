@@ -20,13 +20,12 @@ public class ReceiptDAOImpl implements ReceiptDAO
     }
 
     @Override
-    public void save_receipt(Order order, String login)
+    public void save_receipt(Order order, String login, boolean assamble)
     {
-        jdbcTemplate.update("INSERT INTO receipt (price, user_iduser, idStatus)\n" +
+        jdbcTemplate.update("INSERT INTO receipt (price, user_iduser, idStatus, assambleAndTest)\n" +
                         "     VALUES ( ?, (SELECT iduser FROM user WHERE login=?), \n" +
-                        "     (SELECT idStatus FROM status WHERE status='В обработке'));",
-
-                order.getPrice(), login);
+                        "     (SELECT idStatus FROM status WHERE status='В обработке'), ?);",
+                order.getPrice(), login, assamble);
     }
 
     @Override

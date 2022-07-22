@@ -46,7 +46,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
 
@@ -63,7 +63,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
     @GetMapping("/graphicsCard")
@@ -78,7 +78,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
     @GetMapping("/processor")
@@ -93,14 +93,14 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
     // Поиск через категорию
     @GetMapping("/byCategory/{idCategory}")
     public String byCategory(Model model, @PathVariable int idCategory){
         model.addAttribute("categories", allProductsDAO.getAllCategories());
-        model.addAttribute("products", allProductsDAO.getByCategory(idCategory));
+        model.addAttribute("products", allProductsDAO.getByCategory(idCategory, null));
         return "byCategory";
     }
 
@@ -109,7 +109,7 @@ public class Сategories {
         Product product = allProductsDAO.index(idProduct);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         basketDAO.addToBasket_has_product(authentication.getName(), product, 1);
-        return "redirect:/basket";
+        return "redirect:/basket/0";
     }
 
     @GetMapping("/category")

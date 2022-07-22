@@ -5,7 +5,7 @@ import com.courseproj.CourseProject.Entity.*;
 import java.util.List;
 
 public interface ReceiptDAO {
-    void save_receipt(Order order, String login);
+    void save_receipt(Order order, String login, boolean assamble);
     void saveDelivery(Delivery delivery, String login);
     void saveReceiptProduct(String login, Basket_product product);
     List<Order> index(String login);

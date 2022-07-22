@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class AllProductsDAOImpl implements AllProductsDAO{
+public class AllProductsDAOImpl implements AllProductsDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -17,22 +17,25 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription," +
+    private static final String SQL_GET_BY_ID = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription, c.name as chipset, " +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
             " JOIN img on img.idImg = product.Img_idImg " +
+            " JOIN chipset c on c.idChipset = product.idChipset " +
             " where idProduct = ? " +
             " ORDER BY product.idProduct;";
-    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription," +
+    private static final String SQL_GET_ALL = "select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription, c.name as chipset," +
             " img.path_to_file " +
             " FROM product " +
             " JOIN type ON type.idType = product.idType " +
             " JOIN img on img.idImg = product.Img_idImg " +
+            " JOIN chipset c on c.idChipset = product.idChipset " +
             " ORDER BY product.idProduct;";
 
     @Override
-    public List<Product> getAllProducts(){
+    public List<Product> getAllProducts() {
+        System.out.println(SQL_GET_ALL);
         return jdbcTemplate.query(SQL_GET_ALL, new ProductMapper());
     }
 
@@ -47,9 +50,9 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public void addProduct(String name, int price, String path, String idType, String Description, int Img_id) {
+    public void addProduct(String name, int price, String path, String idType, String Description, int Img_id, Chipset chipset) {
         jdbcTemplate.update("insert into img(description, path_to_file) values(?, ?)", "product_img", path);
-        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription ) values(?, ?, ?, ?, ?)", name, price, Img_id, getCategoryByName(idType).getId(), Description);
+        jdbcTemplate.update("insert into product(name, price, Img_idImg, idType, productDescription, idChipset ) values(?, ?, ?, ?, ?, ?)", name, price, Img_id, getCategoryByName(idType).getId(), Description, chipset.getId());
     }
 
     @Override
@@ -61,17 +64,17 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     @Override
     public void updateProduct(String name, int price, int idType, int idProduct, String Description) {
         Product product = index(idProduct);
-        if(price != product.getPrice()){
-            jdbcTemplate.update("update product set price = "+ price +" where idProduct = ?", idProduct);
+        if (price != product.getPrice()) {
+            jdbcTemplate.update("update product set price = " + price + " where idProduct = ?", idProduct);
         }
-        if(name != product.getName()){
-            jdbcTemplate.update("update product set name = '"+ name +"' where idProduct = ?", idProduct);
+        if (name != product.getName()) {
+            jdbcTemplate.update("update product set name = '" + name + "' where idProduct = ?", idProduct);
         }
-        if(idType != product.getIdType()){
-            jdbcTemplate.update("update product set idType = "+ idType +  " where idProduct = ?", idProduct);
+        if (idType != product.getIdType()) {
+            jdbcTemplate.update("update product set idType = " + idType + " where idProduct = ?", idProduct);
         }
-        if(Description != product.getDescription()){
-            jdbcTemplate.update("update product set productDescription = '"+ Description +  "' where idProduct = ?", idProduct);
+        if (Description != product.getDescription()) {
+            jdbcTemplate.update("update product set productDescription = '" + Description + "' where idProduct = ?", idProduct);
         }
     }
 
@@ -102,12 +105,14 @@ public class AllProductsDAOImpl implements AllProductsDAO{
     }
 
     @Override
-    public List<Product> getByCategory(int idCategory) {
-        return jdbcTemplate.query("select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription, img.path_to_file" +
+    public List<Product> getByCategory(int idCategory, String chipset) {
+        return jdbcTemplate.query("select product.idProduct,  product.name, product.price, type.idType as idType, type.name as type, product.productDescription, img.path_to_file, c.name as chipset" +
                 " from product " +
                 " JOIN img on img.idImg = product.Img_idImg " +
                 " join type on product.idType = type.idType" +
-                " where type.idType = " + idCategory, new ProductMapper());
+                " join chipset c on c.idChipset = product.idChipset" +
+                " where type.idType = " + idCategory +
+                (chipset == null ? "": " and c.name = '" + chipset + "'"), new ProductMapper());
     }
 
     @Override
@@ -115,8 +120,20 @@ public class AllProductsDAOImpl implements AllProductsDAO{
         return jdbcTemplate.query("select idType, name from type", new TypeMapper());
     }
 
+    public List<Chipset> getAllChipsets() {
+        return jdbcTemplate.query("select idChipset, name from chipset", new ChipsetMapper());
+    }
+
     @Override
-    public Type getCategoryByName(String name){
-        return jdbcTemplate.query("select idType, name from type where name = '" + name + "'", new TypeMapper() ).stream().findAny().orElse(null);
+    public Type getCategoryByName(String name) {
+        return jdbcTemplate.query("select idType, name from type where name = '" + name + "'", new TypeMapper()).stream().findAny().orElse(null);
+    }
+
+    public Chipset getChipByName(String chipset) {
+        return jdbcTemplate.query("select c.idChipset, c.name from chipset c where c.name = ?", new Object[]{chipset}, new ChipsetMapper()).stream().findFirst().orElse(null);
+    }
+
+    public Chipset getChipById(int chipset) {
+        return jdbcTemplate.query("select c.idChipset, c.name from chipset c where c.idChipset = ?", new Object[]{chipset}, new ChipsetMapper()).stream().findFirst().orElse(null);
     }
 }
